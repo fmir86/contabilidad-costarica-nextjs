@@ -1,0 +1,135 @@
+.main-header{
+
+    nav.contact-row{
+        @apply w-screen bg-dark-green px-4;
+
+        ul{
+            @apply max-w-7xl w-full mx-auto;
+            @apply relative flex items-center text-white font-light;
+
+            li{
+                @apply text-sm;
+
+                &:after{
+                    @apply text-white first:md:content-['|'] mx-4;
+                }
+
+                &.phone{
+                    @apply pl-0 pr-4 border-r border-white md:border-none;
+                }
+                &.email{
+                    @apply px-4;
+                }
+
+                a{
+                    svg{
+                        @apply inline-block w-6 md:w-4 h-6 md:h-4;
+                    }
+                }
+
+            }
+
+            li.whatsapp{
+                @apply ml-auto bg-light-green;
+                @apply text-base font-normal;
+
+                a{
+                    @apply flex justify-center items-center;
+                    @apply min-h-12 px-4;
+                    @apply w-full h-full;
+                }
+
+                svg{
+                    @apply inline-block w-6 h-6;
+                }
+            }
+
+            span{
+                @apply hidden md:inline-block;
+            }
+
+            svg{
+                @apply px-4 md:px-0 mr-1;
+            }
+
+        }  
+    }
+
+    nav.main-row{
+        @apply w-screen bg-white px-4 py-4;
+        @apply border-b border-gray-200;
+
+        .logo{
+            @apply max-w-[60%] md:max-w-none;
+        }
+
+        .wrapper{
+            @apply flex items-center justify-between max-w-7xl mx-auto;
+
+            ul{
+                @apply hidden md:flex;
+                @apply ml-auto;
+                @apply relative items-center text-dark-gray text-sm font-bold;
+    
+                li{
+                    a{
+                        @apply ml-6;
+                        @apply hover:text-light-green transition-colors duration-300;
+                    }
+                }
+            }
+
+            .hamburger-mobile{
+                @apply block relative md:hidden cursor-pointer w-[2.2rem] h-[1.5rem] mr-4;
+
+                /* Hamburger Icon Styling */
+                span {
+                    @apply block absolute bg-light-green h-[2px] w-full transition duration-200 ease-in-out;
+                    transform-origin: 50% 50%;
+
+                    &:nth-child(1) {
+                        top: 0;
+                    }
+                    &:nth-child(2) {
+                        top: 50%;
+                        transform: translateY(-50%);
+                    }
+                    &:nth-child(3) {
+                        bottom: 0;
+                    }
+                }
+            }
+        }
+
+        &.expanded{            
+            .wrapper{
+                ul{
+                    @apply fixed w-full h-full top-[137px] left-0 flex bg-white;
+                    @apply flex-col items-start justify-start;
+                    height: calc(100vh - 137px);
+
+                    li{
+                        @apply w-full;
+
+                        a{
+                            @apply block m-0 pl-6 pr-4 py-5 w-full;
+                            background: linear-gradient(180deg, rgba(255, 255, 255, 1) 0%, rgba(0,0,0,0.1) 100%);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes slideIn {
+    from {
+      transform: translateY(-10px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
