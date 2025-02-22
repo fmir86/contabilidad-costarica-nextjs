@@ -4,12 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faEnvelope,
-  faPhone,
-  faLocationDot,
-  faChevronRight,
-} from '@fortawesome/free-solid-svg-icons';
+import {faEnvelope,faPhone,faLocationDot} from '@fortawesome/free-solid-svg-icons';
 
 import styles from './Footer.module.scss';
 
