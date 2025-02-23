@@ -1,5 +1,5 @@
 .footer {
-    @apply flex flex-col w-full;
+    @apply flex flex-col w-full z-10;
     @apply bg-[#353535] text-white font-[100];
 
     ul{

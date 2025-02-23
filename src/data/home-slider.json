@@ -1,0 +1,30 @@
+{
+    "slides": [
+      {
+        "image": "/images/home-slides/slide1.jpg",
+        "title": "Servicios Contables a la Medida",
+        "description": "Nos amoldamos a sus necesidades y presupuesto.",
+        "cta": {
+          "label": "Lista de Servicios",
+          "url": "/about",
+          "target": "_self"
+        }
+      },
+      {
+        "image": "/images/home-slides/slide2.jpg",
+        "title": "Soluciones para la Micro, Pequeña y Mediana Empresa",
+        "description": "Soluciones de calidad, confiables y asequibles.",
+        "cta": {
+          "label": "Contact Us",
+          "url": "/contact",
+          "target": "_self"
+        }
+      }
+    ],
+    "settings": {
+      "duration": 5000,
+      "autoplay": true,
+      "loop": true,
+      "pauseAfterInteraction": 10000
+    }
+  }

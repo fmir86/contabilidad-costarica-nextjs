@@ -58,13 +58,13 @@
   --dark-gray: #424242;
   --dark-green: #066d3b;
   --light-green: #289b5b;
+  --active-green: #23b364;
 
   /* Typography */
   --font: 'Poppins', sans-serif;
 }
 
 body {
-  color: var(--dark-gray);
-  background: var(--white);
-  font-family: var(--mainfont);
+  @apply font-[var(--mainfont)]  text-[var(--dark-gray)]  bg-[var(--white)];
+  @apply flex flex-col min-h-screen; 
 }

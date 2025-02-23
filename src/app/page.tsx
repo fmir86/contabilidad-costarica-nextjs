@@ -1,8 +1,15 @@
-const Home = () => {
+import Slider from "@/components/Slider/Slider";
+import slidesData from "@/data/home-slider.json";
 
+const Home = () => {
+  
   return (
     <section>
-      <h2>Welcome to My App!</h2>
+      <Slider 
+        slides={slidesData.slides} 
+        settings={slidesData.settings} 
+      />
+
       <p>This is the homepage content.</p>
     </section>
   )

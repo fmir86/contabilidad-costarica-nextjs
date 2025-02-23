@@ -13,6 +13,7 @@ export default {
         'dark-gray': "var(--foreground)",
         'dark-green': "var(--dark-green)",
         'light-green': "var(--light-green)",
+        'active-green': "var(--active-green)"
       },
       fontFamily: {
         'poppins': 'var(--mainfont)',
