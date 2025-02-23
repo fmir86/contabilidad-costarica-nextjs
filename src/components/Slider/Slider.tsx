@@ -158,7 +158,7 @@ const Slider = (sliderProps: SliderProps) => {
         tl.call(() => {
             currentSlideRef.current = newSlideIdx;
             animateSlide(newSlideIdx);
-        }, null, "-=0.25");
+        }, [], "-=0.25");
     };
 
     return (

@@ -34,10 +34,7 @@
           }
   
           a {
-            color: #ffffff;
-            &:hover {
-              @apply underline;
-            }
+            @apply font-[200] text-white hover:no-underline hover:text-light-green;
           }
         }
       }
@@ -75,6 +72,9 @@
                     &::before{
                         @apply content-['■'] inline-block mr-2 text-[#289b5b];
                     }
+
+                    @apply text-white font-[200] hover:no-underline hover:text-light-green;
+
                 }
             }
         }
@@ -123,12 +123,11 @@
           }
   
           button {
-            background-color: #289b5b;
-            color: #ffffff;
+            @apply text-white font-[200] bg-light-green transition duration-300;
             @apply px-6 py-2 rounded-sm block mt-2;
   
             &:hover {
-              background-color: #238b51; /* slightly darker on hover */
+              @apply bg-active-green;
             }
           }
         }
