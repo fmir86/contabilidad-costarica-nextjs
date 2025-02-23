@@ -1,17 +1,20 @@
 import Slider from "@/components/Slider/Slider";
 import slidesData from "@/data/home-slider.json";
+import styles from "../styles/index.module.scss";
 
 const Home = () => {
   
   return (
-    <section>
+    <>
       <Slider 
         slides={slidesData.slides} 
         settings={slidesData.settings} 
       />
-
-      <p>This is the homepage content.</p>
-    </section>
+      
+      <section>
+        <p>This is the homepage content.</p>
+      </section>
+    </>
   )
 
 }

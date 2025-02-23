@@ -59,12 +59,15 @@
   --dark-green: #066d3b;
   --light-green: #289b5b;
   --active-green: #23b364;
-
   /* Typography */
   --font: 'Poppins', sans-serif;
 }
 
 body {
   @apply font-[var(--mainfont)]  text-[var(--dark-gray)]  bg-[var(--white)];
-  @apply flex flex-col min-h-screen; 
+  @apply flex flex-col min-h-screen;
+
+  section{
+    @apply max-w-7xl mx-auto px-4;
+  }
 }

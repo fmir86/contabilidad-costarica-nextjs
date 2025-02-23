@@ -4,13 +4,13 @@
 
     .slides-wrap{
         @apply w-full h-full relative max-h-[560px] overflow-hidden;
-        aspect-ratio: 1920 / 800;
+        @apply aspect-[4/3] md:aspect-[1920/800];
 
         .slide{
             @apply  hidden w-full h-full absolute top-0 left-0;
 
             .main-img{
-                @apply absolute w-full h-full object-cover;
+                @apply absolute w-full h-full object-right object-cover;
             }
 
             .content{
@@ -18,7 +18,7 @@
                 @apply relative mx-auto max-w-7xl text-white;
 
                 .heading{
-                    @apply text-4xl md:text-5xl font-[600] tracking-wide max-w-[40rem];
+                    @apply leading-[1] text-3xl md:text-5xl font-[600] tracking-wide max-w-[40rem];
                     filter: drop-shadow(0px 0px 20px #000) drop-shadow(0px 0px 20px rgba(0,0,0,0.3));
                 }
 
@@ -37,7 +37,8 @@
     }
 
     .controls{
-        @apply absolute bottom-4 w-full flex justify-center;
+        @apply hidden md:flex;
+        @apply absolute bottom-4 w-full justify-center;
 
         button{
             @apply w-4 h-4 bg-white hover:bg-light-green mx-2 transition-all duration-300;
