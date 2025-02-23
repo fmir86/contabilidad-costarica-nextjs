@@ -19,6 +19,8 @@ const Header = () => {
 
         if(!mainNav.current?.classList.contains(styles['expanded'])) {
             mainNav.current?.classList.add(styles['expanded']);
+            document.body.classList.add('no-scroll');
+
             gsap.set(q('ul'), {opacity:0});
             gsap.to(q('ul'), {duration:0.3, opacity:1});
             gsap.set(q('li'), {opacity:0, y:-5});
@@ -30,6 +32,7 @@ const Header = () => {
             gsap.to(q(`span.bottom`), {duration:0.1, rotate:-225, y:-11, x:0, ease: 'sine.out'});
 
         }else{
+            document.body.classList.remove('no-scroll');
             gsap.to(q('li'), {duration:0.3, opacity:0, y:-5, stagger: { each: 0.05, from: 'end' }});
             gsap.to(q('ul'), {duration:0.3, opacity:0, onComplete: () => {
                 mainNav.current?.classList.remove(styles['expanded']);

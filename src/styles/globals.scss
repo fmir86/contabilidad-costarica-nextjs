@@ -67,6 +67,10 @@ body {
   @apply font-[var(--mainfont)]  text-[var(--dark-gray)]  bg-[var(--white)];
   @apply flex flex-col min-h-screen;
 
+  &.no-scroll{
+    @apply overflow-hidden h-screen;
+  }
+
   section{
     @apply max-w-7xl mx-auto px-4;
   }
