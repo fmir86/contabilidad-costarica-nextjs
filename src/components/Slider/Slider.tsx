@@ -1,205 +1,191 @@
-'use client'
+"use client"
 
 import Link from "next/link";
 import styles from "./Slider.module.scss";
 import gsap from "gsap";
-import { useRef, useEffect, useState } from "react";
-import Hammer from "hammerjs";
+import { useRef, useEffect, useState, useCallback } from "react";
+import Image from "next/image";
+import { useSwipeable } from "react-swipeable";
 
 interface Slide {
-    image: string;
-    title: string;
-    description: string;
-    cta: {
-        label: string;
-        url: string;
-        target: string;
-    }
+  image: string;
+  title: string;
+  description: string;
+  cta: {
+    label: string;
+    url: string;
+    target: string;
+  }
 }
   
 interface SliderProps {
-    slides: Slide[];
-    settings: {
-        duration: number;
-        autoplay: boolean;
-        loop: boolean;
-        pauseAfterInteraction: number; // Nuevo atributo en ms
-    };
+  slides: Slide[];
+  settings: {
+    duration: number;
+    autoplay: boolean;
+    loop: boolean;
+    pauseAfterInteraction: number; // en ms; si es -1, se desactiva el autoplay permanentemente
+  };
 } 
 
 const Slider = (sliderProps: SliderProps) => {
-    const sliderRef = useRef<HTMLUListElement>(null);
-    const controls = useRef<HTMLDivElement>(null);
+  const sliderRef = useRef<HTMLUListElement>(null);
+  const controls = useRef<HTMLDivElement>(null);
 
-    const [slideIndex, setSlideIndex] = useState(0);
-    const currentSlideRef = useRef(0);
-    const totalSlides = sliderProps.slides.length;
+  const [slideIndex, setSlideIndex] = useState(0);
+  const currentSlideRef = useRef(0);
+  const totalSlides = sliderProps.slides.length;
+  const userInteractedRef = useRef(false);
 
-    // Ref para registrar si el usuario interactuó.
-    const userInteractedRef = useRef(false);
+  // Almacenamos el selector de GSAP en un ref para conservarlo entre renders
+  const qRef = useRef<gsap.utils.SelectorFunc | null>(null);
 
-    let q: gsap.utils.SelectorFunc;
+  // Inicializamos el selector y animamos el primer slide
+  useEffect(() => {
+    qRef.current = gsap.utils.selector(sliderRef.current);
+    animateSlide(0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    useEffect(() => {
-        q = gsap.utils.selector(sliderRef.current);
-        // Iniciamos animando el slide 0
-        animateSlide(0);
+  // Función para animar la entrada de un slide
+  const animateSlide = useCallback((idxToAnimate: number) => {
+    if (!qRef.current) return;
+    const tl = gsap.timeline({
+      onComplete: () => {
+        gsap.set(sliderRef.current, { pointerEvents: 'all' });
+        gsap.set(controls.current, { pointerEvents: 'all' });
+      }
+    });
+    console.log('Animating slide:', idxToAnimate);
+    setSlideIndex(idxToAnimate);
 
-        if (sliderRef.current) {
-            const hammer = new Hammer(sliderRef.current);
-            hammer.on("swipeleft", handleSwipeLeft);
-            hammer.on("swiperight", handleSwipeRight);
-            // Cleanup on unmount
-            return () => {
-              hammer.off("swipeleft", handleSwipeLeft);
-              hammer.off("swiperight", handleSwipeRight);
-            };
+    tl.set(qRef.current(`[data-idx="${idxToAnimate}"]`), { display: 'block' });
+    tl.set(qRef.current(`[data-idx="${idxToAnimate}"] .img`), { scale: 1.1, opacity: 0 });
+    tl.set(qRef.current(`[data-idx="${idxToAnimate}"] .heading`), { opacity: 0, x: '-10px' });
+    tl.set(qRef.current(`[data-idx="${idxToAnimate}"] .description`), { opacity: 0, x: '-10px' });
+    tl.set(qRef.current(`[data-idx="${idxToAnimate}"] .cta`), { opacity: 0, y: '20px' });
+    tl.to(qRef.current(`[data-idx="${idxToAnimate}"] .img`), { duration: 2, opacity: 1, scale: 1, ease: "power2.out" });
+    tl.to(qRef.current(`[data-idx="${idxToAnimate}"] .heading`), { duration: 1, opacity: 1, x: 0, ease: "power2.out" }, "-=1.5");
+    tl.to(qRef.current(`[data-idx="${idxToAnimate}"] .description`), { duration: 1, opacity: 1, x: 0, ease: "power2.out" }, "-=1.0");
+    tl.to(qRef.current(`[data-idx="${idxToAnimate}"] .cta`), { duration: 1, opacity: 1, y: 0, ease: "power2.out" }, "-=0.5");
+  }, []);
+
+  // Función para animar la salida del slide actual y la entrada del nuevo
+  const getNewSlide = useCallback((newSlideIdx: number) => {
+    if (!qRef.current) return;
+    console.log('getNewSlide(): newSlideIdx =', newSlideIdx);
+    if (newSlideIdx === currentSlideRef.current) return;
+
+    gsap.set(sliderRef.current, { pointerEvents: 'none' });
+    gsap.set(controls.current, { pointerEvents: 'none' });
+
+    const tl = gsap.timeline();
+    tl.to(qRef.current(`[data-idx="${currentSlideRef.current}"] .cta`), { duration: 0.25, opacity: 0, y: '10px', ease: "power1.in" }, "-=0");
+    tl.to(qRef.current(`[data-idx="${currentSlideRef.current}"] .description`), { duration: 0.25, opacity: 0, x: '-10px', ease: "power1.in" }, "-=0.1");
+    tl.to(qRef.current(`[data-idx="${currentSlideRef.current}"] .heading`), { duration: 0.25, opacity: 0, x: '-10px', ease: "power1.in" }, "-=0.05");
+    tl.to(qRef.current(`[data-idx="${currentSlideRef.current}"] .img`), { duration: 0.25, opacity: 0, ease: "power1.in" }, "-=0.025");
+    tl.call(() => {
+      currentSlideRef.current = newSlideIdx;
+      animateSlide(newSlideIdx);
+    }, [], "-=0.25");
+  }, [animateSlide]);
+
+  // Autoplay: cada vez que cambia slideIndex se programa la transición
+  useEffect(() => {
+    if (sliderProps.settings.autoplay) {
+      let delay = sliderProps.settings.duration;
+      if (userInteractedRef.current) {
+        if (sliderProps.settings.pauseAfterInteraction === -1) {
+          // Se desactiva el autoplay
+          return;
         }
-    }, []);
-
-    useEffect(() => {
-        console.log('slideIndex updated:', slideIndex);
-    }, [slideIndex]);
-
-    // Efecto para autoplay: se programa una transición automática cada vez que cambia el slide.
-    // Si el usuario interactuó, se usará el delay definido en pauseAfterInteraction.
-    // Si pauseAfterInteraction es -1, se interrumpe el autoplay.
-    useEffect(() => {
-        if (sliderProps.settings.autoplay) {
-            let delay = sliderProps.settings.duration;
-            if (userInteractedRef.current) {
-                if (sliderProps.settings.pauseAfterInteraction === -1) {
-                    // Autoplay se rompe: no se programa el timer.
-                    return;
-                }
-                delay = sliderProps.settings.pauseAfterInteraction;
-                // Reseteamos la bandera para futuras transiciones.
-                userInteractedRef.current = false;
-            }
-            const timer = setTimeout(() => {
-                if (!sliderProps.settings.loop && currentSlideRef.current === totalSlides - 1) {
-                    return;
-                }
-                const nextIndex = currentSlideRef.current < totalSlides - 1 
-                    ? currentSlideRef.current + 1 
-                    : 0;
-                getNewSlide(nextIndex);
-            }, delay);
-            return () => clearTimeout(timer);
+        delay = sliderProps.settings.pauseAfterInteraction;
+        userInteractedRef.current = false;
+      }
+      const timer = setTimeout(() => {
+        if (!sliderProps.settings.loop && currentSlideRef.current === totalSlides - 1) {
+          return;
         }
-    }, [
-        slideIndex, 
-        sliderProps.settings.autoplay, 
-        sliderProps.settings.loop, 
-        sliderProps.settings.duration, 
-        sliderProps.settings.pauseAfterInteraction, 
-        totalSlides
-    ]);
-
-    const handleSwipeLeft = () => {
-        // Marca la interacción del usuario.
-        userInteractedRef.current = true;
-        const newIndex = currentSlideRef.current < totalSlides - 1 
-            ? currentSlideRef.current + 1 
+        const nextIndex =
+          currentSlideRef.current < totalSlides - 1
+            ? currentSlideRef.current + 1
             : 0;
-        console.log("Swipe left: current index:", currentSlideRef.current, "new index:", newIndex);
-        getNewSlide(newIndex);
-    };
+        getNewSlide(nextIndex);
+      }, delay);
+      return () => clearTimeout(timer);
+    }
+  }, [
+    slideIndex, 
+    sliderProps.settings, 
+    totalSlides, 
+    getNewSlide
+  ]);
 
-    const handleSwipeRight = () => {
-        // Marca la interacción del usuario.
-        userInteractedRef.current = true;
-        const newIndex = currentSlideRef.current > 0 
-            ? currentSlideRef.current - 1 
-            : totalSlides - 1;
-        console.log("Swipe right: current index:", currentSlideRef.current, "new index:", newIndex);
-        getNewSlide(newIndex);
-    };
+  // Usamos react-swipeable para detectar gestos de swipe
+  const swipeHandlers = useSwipeable({
+    onSwipedLeft: () => {
+      userInteractedRef.current = true;
+      const newIndex = currentSlideRef.current < totalSlides - 1 
+          ? currentSlideRef.current + 1 
+          : 0;
+      getNewSlide(newIndex);
+    },
+    onSwipedRight: () => {
+      userInteractedRef.current = true;
+      const newIndex = currentSlideRef.current > 0 
+          ? currentSlideRef.current - 1 
+          : totalSlides - 1;
+      getNewSlide(newIndex);
+    },
+    trackMouse: true // Permite detectar swipes con el ratón en escritorio
+  });
 
-    const animateSlide = (idxToAnimate: number) => {
-        const tl = gsap.timeline({
-            onComplete: () => {
-                // Reactivamos las interacciones al finalizar la animación.
-                gsap.set(sliderRef.current, { pointerEvents: 'all' });
-                gsap.set(controls.current, { pointerEvents: 'all' });
-            }
-        });
-        console.log('Animating slide:', idxToAnimate);
+  return (
+    <div className={styles['slider']} {...swipeHandlers}>
+      <ul className={styles['slides-wrap']} ref={sliderRef}>
+        {sliderProps.slides.map((slide, index) => (
+          <li key={index} className={`${styles['slide']} slide-item`} data-idx={index}>
+            
+            <Image 
+                className={`${styles['main-img']} img`} 
+                src={slide.image} 
+                alt={slide.title} 
+                width={'1920'}
+                height={'800'}
+            />
 
-        setSlideIndex(idxToAnimate);
-
-        tl.set(q(`[data-idx="${idxToAnimate}"]`), { display: 'block' });
-        tl.set(q(`[data-idx="${idxToAnimate}"] .img`), { scale: 1.1, opacity: 0 });
-        tl.set(q(`[data-idx="${idxToAnimate}"] .heading`), { opacity: 0, x: '-10px' });
-        tl.set(q(`[data-idx="${idxToAnimate}"] .description`), { opacity: 0, x: '-10px' });
-        tl.set(q(`[data-idx="${idxToAnimate}"] .cta`), { opacity: 0, y: '20px' });
-
-        tl.to(q(`[data-idx="${idxToAnimate}"] .img`), { duration: 2, opacity: 1, scale: 1, ease: "power2.out" });
-        tl.to(q(`[data-idx="${idxToAnimate}"] .heading`), { duration: 1, opacity: 1, x: 0, ease: "power2.out" }, "-=1.5");
-        tl.to(q(`[data-idx="${idxToAnimate}"] .description`), { duration: 1, opacity: 1, x: 0, ease: "power2.out" }, "-=1.0");
-        tl.to(q(`[data-idx="${idxToAnimate}"] .cta`), { duration: 1, opacity: 1, y: 0, ease: "power2.out" }, "-=0.5");
-    };
-
-    const getNewSlide = (newSlideIdx: number) => {
-        console.log('getNewSlide(): newSlideIdx =', newSlideIdx);
-        q = gsap.utils.selector(sliderRef.current);
-
-        if (newSlideIdx === currentSlideRef.current) return;
-
-        // Desactivamos las interacciones durante la transición.
-        gsap.set(sliderRef.current, { pointerEvents: 'none' });
-        gsap.set(controls.current, { pointerEvents: 'none' });
-
-        const tl = gsap.timeline();
-        tl.to(q(`[data-idx="${currentSlideRef.current}"] .cta`), { duration: 0.25, opacity: 0, y: '10px', ease: "power1.in" }, "-=0");
-        tl.to(q(`[data-idx="${currentSlideRef.current}"] .description`), { duration: 0.25, opacity: 0, x: '-10px', ease: "power1.in" }, "-=0.1");
-        tl.to(q(`[data-idx="${currentSlideRef.current}"] .heading`), { duration: 0.25, opacity: 0, x: '-10px', ease: "power1.in" }, "-=0.05");
-        tl.to(q(`[data-idx="${currentSlideRef.current}"] .img`), { duration: 0.25, opacity: 0, ease: "power1.in" }, "-=0.025");
-        tl.call(() => {
-            currentSlideRef.current = newSlideIdx;
-            animateSlide(newSlideIdx);
-        }, [], "-=0.25");
-    };
-
-    return (
-        <div className={styles['slider']}>
-            <ul className={styles['slides-wrap']} ref={sliderRef}>
-                {sliderProps.slides.map((slide, index) => (
-                    <li key={index} className={`${styles['slide']} slide-item`} data-idx={index}>
-                        <img className={`${styles['main-img']} img`} src={slide.image} alt={slide.title} />
-                        <div className={styles['content']}>
-                            <p className={`${styles['heading']} heading`}>{slide.title}</p>
-                            <p className={`${styles['description']} description`}>{slide.description}</p>
-                            {slide.cta && (
-                                <Link
-                                    href={slide.cta.url}
-                                    target={slide.cta.target}
-                                    className={`${styles['cta']} cta`}
-                                >
-                                    {slide.cta.label}
-                                </Link>
-                            )}
-                        </div>
-                    </li>
-                ))}
-            </ul>
-
-            <div className={styles['controls']} ref={controls}>
-                {sliderProps.slides.map((slide, index) => (
-                    <button
-                        key={index}
-                        className={`${styles['square-btn']} ${index === slideIndex ? styles['active'] : ''}`}
-                        data-idx={index}
-                        onClick={() => {
-                            // Marca la interacción del usuario
-                            userInteractedRef.current = true;
-                            getNewSlide(index);
-                        }}
-                    ></button>
-                ))}
+            <div className={styles['content']}>
+              <p className={`${styles['heading']} heading`}>{slide.title}</p>
+              <p className={`${styles['description']} description`}>{slide.description}</p>
+              {slide.cta && (
+                <Link
+                  href={slide.cta.url}
+                  target={slide.cta.target}
+                  className={`${styles['cta']} cta`}
+                >
+                  {slide.cta.label}
+                </Link>
+              )}
             </div>
-        </div>
-    );
+          </li>
+        ))}
+      </ul>
+
+      <div className={styles['controls']} ref={controls}>
+        {sliderProps.slides.map((slide, index) => (
+          <button
+            key={index}
+            className={`${styles['square-btn']} ${index === slideIndex ? styles['active'] : ''}`}
+            data-idx={index}
+            onClick={() => {
+              userInteractedRef.current = true;
+              getNewSlide(index);
+            }}
+          ></button>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default Slider;

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import styles from './Header.module.scss';
-
+import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
@@ -72,7 +72,7 @@ const Header = () => {
         <nav className={styles['main-row']} ref={mainNav}>
             <div className={styles['wrapper']}>
                 <Link href="/" className={styles['logo']}>
-                    <img src="images/contabilidadcr-logo.svg" alt="Contabilidad Costa Rica" width={240} height={56} data-width={157} data-height={29}/>
+                    <Image src="images/contabilidadcr-logo.svg" alt="Contabilidad Costa Rica" width={240} height={56} data-width={157} data-height={29}/>
                 </Link>
 
                 <ul>

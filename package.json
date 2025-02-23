@@ -14,10 +14,10 @@
     "@fortawesome/free-solid-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",
     "gsap": "^3.12.7",
-    "hammerjs": "^2.0.8",
     "next": "15.1.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-swipeable": "^7.0.2",
     "sass": "^1.85.0"
   },
   "devDependencies": {
