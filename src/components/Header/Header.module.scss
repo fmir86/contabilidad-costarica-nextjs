@@ -1,5 +1,7 @@
 .main-header{
 
+    @apply fixed z-[1000] md:static;
+
     nav.contact-row{
         @apply w-screen bg-dark-green px-4;
 

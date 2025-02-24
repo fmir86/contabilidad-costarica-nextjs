@@ -74,4 +74,10 @@ body {
   section{
     @apply max-w-7xl mx-auto px-4;
   }
+
+  main.main-content{
+    @apply pt-[137px] md:pt-0;
+  }
+
+
 }

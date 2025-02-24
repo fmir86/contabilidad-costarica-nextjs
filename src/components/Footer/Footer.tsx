@@ -15,24 +15,28 @@ const Footer: React.FC = () => {
       <div className={styles['contact-row']}>
         <ul className={styles['contact-list']}>
           <li>
-            <span className={styles['icon-circle']}>
-              <FontAwesomeIcon icon={faEnvelope} size="1x" />
-            </span>
             <Link href="mailto:info@contabilidadcostarica.net">
+              <span className={styles['icon-circle']}>
+                <FontAwesomeIcon icon={faEnvelope} size="1x" />
+              </span>
               info@contabilidadcostarica.net
             </Link>
           </li>
           <li>
-            <span className={styles['icon-circle']}>
-              <FontAwesomeIcon icon={faPhone} size="1x" />
-            </span>
-            <Link href="tel:+50685949097">+506 85949097</Link>
+            <Link href="tel:+50685949097">
+              <span className={styles['icon-circle']}>
+                <FontAwesomeIcon icon={faPhone} size="1x" />
+              </span>
+              +506 85949097
+            </Link>
           </li>
           <li>
-            <span className={styles['icon-circle']}>
-              <FontAwesomeIcon icon={faLocationDot} size="1x" />
-            </span>
-            <Link href="/">Pará de Santo Domingo de Heredia, Costa Rica</Link>
+            <Link href="/">
+              <span className={styles['icon-circle']}>
+                <FontAwesomeIcon icon={faLocationDot} size="1x" />
+              </span>
+              Pará de Santo Domingo de Heredia, Costa Rica
+            </Link>
           </li>
         </ul>
       </div>

@@ -22,19 +22,24 @@
         li {
           @apply flex items-center gap-2;
   
-          /* Green circle around icon */
-          .icon-circle {
-            @apply w-10 h-10 rounded-full flex items-center justify-center;
-            background-color: #289b5b;
-  
-            /* Icon color */
-            svg {
-              @apply text-white;
+          a {
+            @apply flex items-center gap-2;
+            @apply font-[200] text-white hover:no-underline hover:text-light-green;
+
+            .icon-circle {
+              @apply w-10 h-10 rounded-full flex items-center justify-center transition-all duration-500 ease-out;
+              background-color: #289b5b;
+    
+              svg {
+                @apply text-white;
+              }
             }
           }
-  
-          a {
-            @apply font-[200] text-white hover:no-underline hover:text-light-green;
+
+          a:hover{
+            .icon-circle{
+              transform: rotate3d(0, 1, 0, 360deg);
+            }
           }
         }
       }
