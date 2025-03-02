@@ -14,11 +14,7 @@ interface ClientItem {
   category: string;
 }
 
-interface ClientsProps {
-  itemsPerView?: number;
-}
-
-const Clients: React.FC<ClientsProps> = ({ itemsPerView = 3 }) => {
+const Clients: React.FC = () => {
   const clientsList: ClientItem[] = [
     {
       id: 1,

@@ -4,9 +4,10 @@ import React from 'react';
 import styles from './Services.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faFileInvoice, faSeedling, faSliders } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 interface ServiceItem {
-  icon: any; // Font Awesome icon
+  icon: IconDefinition;
   title: string;
   description: string;
 }
