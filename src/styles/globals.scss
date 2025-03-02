@@ -56,9 +56,13 @@
   /* Colors */
   --white: #ffffff;
   --dark-gray: #424242;
+  --light-gray: #f7f7f7;
   --dark-green: #066d3b;
   --light-green: #289b5b;
   --active-green: #23b364;
+  --yellow: #ffcf41;
+  --active-yellow: #ffd75f;
+  --light-blue: #d8e7ef;
   /* Typography */
   --font: 'Poppins', sans-serif;
 }
@@ -71,12 +75,30 @@ body {
     @apply overflow-hidden h-screen;
   }
 
-  section{
-    @apply max-w-7xl mx-auto px-4;
-  }
 
   main.main-content{
     @apply pt-[137px] md:pt-0;
+  }
+
+  h1{
+    @apply w-full;
+    @apply text-2xl sm:text-4xl font-bold text-gray-900 mb-10 text-center;
+
+
+    &:after {
+      @apply content-[''] block h-1 w-24 bg-green-500 mt-2 mb-8 mx-auto;
+    }
+
+  }
+
+  h2{
+    @apply w-fit;
+    @apply text-2xl sm:text-4xl font-bold mb-10 text-left;
+
+    &:after {
+      @apply content-[''] block h-1 w-24 bg-green-500 mt-2 mb-8;
+    }
+
   }
 
 

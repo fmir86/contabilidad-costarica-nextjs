@@ -1,0 +1,83 @@
+.featuredSection {
+  @apply px-0 py-16;
+
+  .container {
+    @apply max-w-7xl mx-auto px-0 sm:px-4 sm:px-6 lg:px-8;
+
+    .row {
+      @apply grid grid-cols-1 md:grid-cols-3 gap-8;
+      @apply px-4 sm:px-0;
+
+      .itemWrapper {
+
+        @apply relative bg-white rounded-sm shadow-md overflow-hidden;
+      
+        .content {
+
+          @apply static md:absolute w-full md:aspect-square py-4 sm:py-6 md:pt-0 px-4 sm:px-6 transition-all duration-300 ease-in-out;
+          @apply bg-light-green md:bg-transparent;
+          @apply flex flex-col justify-between md:justify-start;
+
+          top: calc(100% - 3.75rem);
+
+          .title {
+            @apply relative pb-1 sm:pb-2 md:py-4 px-6 bg-light-green lg:mb-6 md:min-h-[60px];
+            @apply transition-all duration-300 ease-in-out;
+            @apply left-[-1.5rem];
+            width: calc(100% + 3rem);
+          
+            h3{
+              @apply text-lg lg:text-xl font-semibold text-white;
+            }
+          }
+              
+          .description {
+            @apply text-sm lg:text-base leading-tight lg:leading-relaxed;
+            @apply relative text-white mb-2 sm:mb-4;
+          }
+          
+          .button {
+            @apply font-medium text-xs leading-tight uppercase;
+            @apply bg-yellow text-dark-gray hover:bg-active-yellow hover:shadow-lg;
+            @apply transition duration-150 ease-in-out;
+            @apply relative inline-block mt-2 px-6 py-2 rounded shadow-md focus:outline-none focus:ring-0;
+          }
+      
+          &::before{
+            @apply md:content-[''] absolute w-full h-full bg-light-green top-0 left-0 z-[0];
+            mix-blend-mode: multiply;
+          }
+        }
+
+        .imageWrapper {
+          @apply relative w-full aspect-[12/7] md:aspect-square overflow-hidden max-h-[20rem];
+          img{
+            @apply object-cover transition-all duration-300 ease-in-out;
+            filter: saturate(1);
+            backface-visibility: hidden;
+          }
+        }
+        
+        @media (min-width: 768px) {
+          &:hover {
+            .content{
+              top: 0;
+              &::before{
+                mix-blend-mode: multiply;
+              }
+              .title{
+                @apply bg-[transparent]
+              }
+            }
+
+            .imageWrapper img {
+              filter: saturate(0);
+            } 
+          }
+        }
+      }
+
+    }
+    
+  }
+}

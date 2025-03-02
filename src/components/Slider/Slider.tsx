@@ -56,7 +56,7 @@ const Slider = (sliderProps: SliderProps) => {
         gsap.set(controls.current, { pointerEvents: 'all' });
       }
     });
-    console.log('Animating slide:', idxToAnimate);
+    //console.log('Animating slide:', idxToAnimate);
     setSlideIndex(idxToAnimate);
 
     tl.set(qRef.current(`[data-idx="${idxToAnimate}"]`), { display: 'block' });
@@ -73,7 +73,7 @@ const Slider = (sliderProps: SliderProps) => {
   // Función para animar la salida del slide actual y la entrada del nuevo
   const getNewSlide = useCallback((newSlideIdx: number) => {
     if (!qRef.current) return;
-    console.log('getNewSlide(): newSlideIdx =', newSlideIdx);
+    //console.log('getNewSlide(): newSlideIdx =', newSlideIdx);
     if (newSlideIdx === currentSlideRef.current) return;
 
     gsap.set(sliderRef.current, { pointerEvents: 'none' });
@@ -152,6 +152,10 @@ const Slider = (sliderProps: SliderProps) => {
                 alt={slide.title} 
                 width={'1920'}
                 height={'800'}
+                priority={index === 0}
+                loading={index === 0 ? "eager" : "lazy"}
+                fetchPriority={index === 0 ? "high" : index === 1 ? "low" : "auto"}
+                sizes="100vw"
             />
 
             <div className={styles['content']}>

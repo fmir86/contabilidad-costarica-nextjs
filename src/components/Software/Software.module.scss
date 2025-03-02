@@ -1,0 +1,36 @@
+.softwareSection {
+  @apply w-full py-16 bg-gray-100;
+
+  .softwareContainer{
+    @apply max-w-7xl mx-auto overflow-hidden px-6;
+
+    .sectionTitle {
+      @apply text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-left;
+    }
+
+  }
+
+  .container {
+    @apply flex;
+
+
+    .logoCont {
+      @apply flex-shrink-0 pl-0 pr-[2px];
+      
+      flex: 0 0 100%;
+
+      @screen sm {
+        flex: 0 0 calc(100% / 2);
+      }
+      
+      @screen md {
+        flex: 0 0 calc(100% / 5);
+      }
+
+      img{
+        @apply w-[60%] mx-auto;
+      }
+      
+    }
+  }
+}

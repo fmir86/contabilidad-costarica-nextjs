@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import { FunctionComponent } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,7 +9,7 @@ import {faEnvelope,faPhone,faLocationDot} from '@fortawesome/free-solid-svg-icon
 
 import styles from './Footer.module.scss';
 
-const Footer: React.FC = () => {
+const Footer: FunctionComponent = () => {
   return (
     <footer className={styles.footer}>
       {/* CONTACT ROW */}
@@ -52,7 +53,6 @@ const Footer: React.FC = () => {
               alt="Contabilidad Costa Rica"
               width={256}
               height={60}
-              priority
             />
           </div>
           <p>

@@ -1,0 +1,47 @@
+.servicesSection {
+  @apply w-full bg-gray-100 py-16;
+
+  .servicesContainer {
+    @apply mx-auto px-4 sm:px-8 max-w-7xl;
+
+    .servicesTitle {
+      @apply text-gray-900 mb-2 sm:mb-10 text-left;
+    }
+
+    .servicesGrid {
+      @apply grid grid-cols-1 md:grid-cols-3 gap-2 sm:gap-8;
+
+      .serviceCard {
+        @apply flex flex-col sm:flex-row gap-0 sm:gap-8 items-center sm:items-start;
+
+        .serviceIcon {
+          @apply mb-6 mt-6 px-4 transition-all duration-500 ease-out;
+
+          .iconContainer {
+            @apply bg-green-500 p-4 flex items-center justify-center rounded-sm transform rotate-45;
+            @apply w-[4rem] h-[4rem];
+
+            .faIcon {
+              @apply transform -rotate-45 text-white text-[2rem];
+            }
+          }
+        }
+
+        .serviceTitle {
+          @apply text-xl font-bold text-gray-900 mb-1 sm:mb-4 text-center sm:text-left;
+        }
+
+        .serviceDescription {
+          @apply text-gray-600 leading-relaxed text-center sm:text-left;
+        }
+
+        &:hover{
+          
+          .serviceIcon{
+            transform: scale(1.2, 1.2);
+          }
+        }
+      }
+    }
+  }
+}

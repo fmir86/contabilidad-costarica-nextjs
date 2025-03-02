@@ -54,12 +54,11 @@
       color: #ffffff;
 
       &::after{
+        border-bottom: 1px solid #555555;
         @apply content-[''] bottom-0 absolute block h-[1px] left-0 w-screen;
         @media (min-width: 1280px){
             left: calc( (100vw - 1280px) / 2 * -1 );
         }
-
-        border-bottom: 1px solid #555555; /* optional separator line */
       }
   
       .col {
