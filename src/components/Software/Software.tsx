@@ -63,7 +63,9 @@ const Software: React.FC = () => {
   return (
     <section className={styles.softwareSection}>
       <div className={styles.softwareContainer}>
-        <h2 className={styles.sectionTitle}>Soluciones Informáticas</h2>      
+        
+        <h2 className={styles.sectionTitle}>Soluciones Informáticas</h2>  
+
         <div className={styles.carouselWrapper}>
           <div className={styles.viewport} ref={emblaRef}>
             <div className={styles.container}>

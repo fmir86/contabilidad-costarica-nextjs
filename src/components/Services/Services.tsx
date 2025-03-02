@@ -5,6 +5,7 @@ import styles from './Services.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faFileInvoice, faSeedling, faSliders } from '@fortawesome/free-solid-svg-icons';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import Link from 'next/link';
 
 interface ServiceItem {
   icon: IconDefinition;
@@ -54,6 +55,11 @@ const Services: React.FC = () => {
           ))}
         </div>
       </div>
+
+      <Link href="/servicios" className="green-cta">
+          Ver todos los Servicios
+      </Link>
+
     </section>
   );
 };

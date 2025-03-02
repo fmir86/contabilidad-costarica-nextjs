@@ -72,7 +72,7 @@ const LatestPosts: React.FC<LatestPostsProps> = ({ posts }) => {
           ))}
         </div>
 
-        <Link href="/blog" className={styles.viewAllBtn}>
+        <Link href="/blog" className="green-cta">
           Ver todas las publicaciones
         </Link>
 

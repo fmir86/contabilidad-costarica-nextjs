@@ -57,7 +57,7 @@ const Featured: React.FC = () => {
 
                 <div className={styles.description}>{item.description}</div>
                 <div>
-                  <Link href="/blog" className={styles.button}>
+                  <Link href="/sobre-nosotros" className={styles.button}>
                     LEER MÁS
                   </Link>
                 </div>

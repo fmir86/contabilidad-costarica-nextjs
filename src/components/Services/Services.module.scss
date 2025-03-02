@@ -12,7 +12,7 @@
       @apply grid grid-cols-1 md:grid-cols-3 gap-2 sm:gap-8;
 
       .serviceCard {
-        @apply flex flex-col sm:flex-row gap-0 sm:gap-8 items-center sm:items-start;
+        @apply flex flex-col lg:flex-row gap-0 sm:gap-8 items-center lg:items-start;
 
         .serviceIcon {
           @apply mb-6 mt-6 px-4 transition-all duration-500 ease-out;
@@ -28,11 +28,11 @@
         }
 
         .serviceTitle {
-          @apply text-xl font-bold text-gray-900 mb-1 sm:mb-4 text-center sm:text-left;
+          @apply text-xl font-bold text-gray-900 mb-1 sm:mb-4 text-center lg:text-left;
         }
 
         .serviceDescription {
-          @apply text-gray-600 leading-relaxed text-center sm:text-left;
+          @apply text-gray-600 leading-relaxed text-center lg:text-left;
         }
 
         &:hover{
