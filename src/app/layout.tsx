@@ -8,6 +8,7 @@ import "../styles/globals.scss";
 export const metadata: Metadata = {
   title: "Contabilidad Costa Rica | Servicios contables de calidad y asequibles.",
   description: "Servicios de gestión fiscal, pago de planillas, procesamiento de facturas, inscripción en régimen tributario, y mucho más",
+  metadataBase: new URL('https://contabilidadcostarica.net')
 };
 
  const RootLayout = ({children}: Readonly<{ children: ReactNode }>) => {

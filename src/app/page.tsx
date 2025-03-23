@@ -7,16 +7,19 @@ import Slider from "@/components/Slider/Slider";
 import slidesData from "@/data/home-slider.json";
 import { getPosts } from "../../lib/getPosts"; // Import the direct function
 import Software from "@/components/Software/Software";
-import Head from "next/head";
+
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Contabilidad Costa Rica | Servicios contables de confianza, calidad, y accesibles',
+  description: 'Ofrecemos servicios contables para la micro, pequeña y mediana empresa en Costa Rica. Gestión Tributaria, estados financieros, asesorías.'
+}
+
+
 
 async function Home() {
   // Get posts directly without API call - already formatted with day/month
   const formattedPosts = await getPosts(3);
-
-  <Head>
-    <title>Contabilidad Costa Rica | Servicios contables de confianza, calidad, y accesibles</title>
-    <meta name="description" content="Ofrecemos servicios contables para la micro, pequeña y mediana empresa en Costa Rica. Gestión Tributaria, estados financieros, asesorías." />
-  </Head>
 
   return (
     <>

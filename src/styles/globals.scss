@@ -82,7 +82,7 @@ body {
 
   h1{
     @apply w-full;
-    @apply text-2xl sm:text-4xl font-bold text-gray-900 mb-10 text-center;
+    @apply text-2xl sm:text-4xl font-semibold text-gray-900 mb-10 text-center;
 
 
     &:after {
@@ -93,10 +93,22 @@ body {
 
   h2{
     @apply w-fit;
-    @apply text-2xl sm:text-4xl font-bold mb-10 text-left;
+    @apply text-2xl sm:text-4xl font-semibold mb-10 text-left;
 
     &:after {
       @apply content-[''] block h-1 w-24 bg-green-500 mt-2 mb-8;
+    }
+  }
+
+  h3{
+    @apply font-bold my-4;
+  }
+
+  .centered{
+    @apply text-center w-full;
+    
+    &:after {
+      @apply content-[''] block h-1 w-24 bg-green-500 mt-2 mb-8 mx-auto;
     }
 
   }
@@ -104,6 +116,20 @@ body {
   .green-cta {
     @apply w-fit md:w-1/3 text-white py-3 px-6 text-center rounded-sm text-sm font-semibold mt-12 block mx-auto;
     @apply bg-light-green hover:bg-active-green transition-all duration-300;
+  }
+
+  .inner-page-title{
+    @apply bg-light-gray text-dark-green font-[600] py-10 w-screen relative;
+    left: -1.5rem;
+
+    @media (min-width: 1280px) {
+      left: calc(  ( ((100vw - 1280px) / 2) * -1 ) - 1.5rem );
+    }
+
+
+    &:after{
+      @apply content-none;
+    }
   }
 
 }

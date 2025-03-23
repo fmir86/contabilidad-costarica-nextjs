@@ -1,0 +1,46 @@
+/* Servicios */
+
+.services{
+
+    @apply max-w-7xl mx-auto px-6 pb-6 sm:pb-12;
+
+    .centered{
+        @apply max-w-2xl mx-auto text-center;
+    }
+
+    .services-grid{
+
+        @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+        @apply mt-8;
+
+
+        .card{
+
+            @apply shadow-lg rounded-sm overflow-hidden;
+
+            .image {
+                @apply aspect-[4/3] overflow-hidden;
+
+                img{
+                    @apply transition-all duration-500 ease-out w-full h-full;
+                    object-fit: cover;
+                    object-position: top;
+                }
+            }
+    
+            .content{
+                @apply p-6;
+            }
+
+            &:hover{
+
+                .image img{
+                    @apply transform scale-110;
+                }    
+
+            }
+        }
+    
+    }
+
+}
