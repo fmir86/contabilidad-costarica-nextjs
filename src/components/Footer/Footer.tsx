@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faEnvelope,faPhone,faLocationDot} from '@fortawesome/free-solid-svg-icons';
 
 import styles from './Footer.module.scss';
+import NewsletterForm from '../NewsletterForm/NewsletterForm';
 
 const Footer: FunctionComponent = () => {
   return (
@@ -94,22 +95,7 @@ const Footer: FunctionComponent = () => {
 
         {/* Column 3: Subscribe Form */}
         <div className={styles.col}>
-          <form id="subscribe-form" acceptCharset="utf-8">
-            <label htmlFor="subscribe-email">Únase a nuestro Newsletter:</label>
-            <div className={styles['input-wrapper']}>
-              <input
-                type="email"
-                name="email"
-                id="subscribe-email"
-                placeholder="Ingrese su email"
-                required
-              />
-              <button type="submit" id="subscribe-button">
-                ENVIAR
-              </button>
-            </div>
-            <div id="subscribe-msg"></div>
-          </form>
+          <NewsletterForm/>
         </div>
       </div>
 

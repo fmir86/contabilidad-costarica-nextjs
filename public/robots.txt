@@ -1,0 +1,13 @@
+# Allow all web crawlers
+User-agent: *
+Allow: /
+
+# Disallow common files that don't need indexing
+Disallow: /api/
+Disallow: /.next/
+Disallow: /node_modules/
+Disallow: /404
+Disallow: /500
+
+# Point to sitemap
+Sitemap: https://www.contabilidadcostarica.net/sitemap.xml

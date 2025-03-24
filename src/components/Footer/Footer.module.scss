@@ -112,30 +112,6 @@
           margin-left: 4px;
         }
       }
-  
-      form {
-        label {
-          @apply block mb-2;
-        }
-  
-        .input-wrapper {
-          @apply flex flex-col items-start gap-2;
-  
-          input[type='email'] {
-            @apply px-4 py-2 text-black w-full sm:w-[20rem];
-            @apply focus:outline-none focus:ring focus:ring-[#289b5b];
-          }
-  
-          button {
-            @apply text-white font-[200] bg-light-green transition duration-300;
-            @apply px-6 py-2 rounded-sm block mt-2;
-  
-            &:hover {
-              @apply bg-active-green;
-            }
-          }
-        }
-      }
     }
   
     /* FOOTER BOTTOM */
