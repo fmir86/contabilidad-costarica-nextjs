@@ -3,6 +3,8 @@ import { ReactNode } from 'react';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import "../styles/globals.scss";
+import { GoogleAnalytics } from '@next/third-parties/google'
+
 
 
 export const metadata: Metadata = {
@@ -21,6 +23,7 @@ export const metadata: Metadata = {
         </main>
         <Footer />
       </body>
+      <GoogleAnalytics gaId="G-G4FN6X5HJL" />
     </html>
   );
 }
