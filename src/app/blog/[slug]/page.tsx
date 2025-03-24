@@ -3,6 +3,8 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { getAllPostSlugs, getPostBySlug } from '../../../../lib/markdown';
+import styles from '@/styles/blog-page.module.scss';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 // Generate all static paths at build time
 export async function generateStaticParams() {
@@ -43,92 +45,66 @@ export default async function BlogPost({ params }: { params: { slug: string } })
   }
 
   return (
-    <>
-      {/* Page Title Section - Similar to your original component */}
-      <div className="page-title">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <div className="page-title-heading">
-                <h1 className="h1-title">{post.title}</h1>
-              </div>
-              <ul className="breadcrumbs">
-                <li>
-                  <Link href="/blog/" title="">
-                    Blog <i className="fa fa-angle-right" aria-hidden="true"></i>
-                  </Link>
-                </li>
-                <li>
-                  <Link href={`/blog/${params.slug}`} title="">
-                    {post.title}
-                  </Link>
-                </li>
-              </ul>
-              <div className="clearfix"></div>
-            </div>
-          </div>
-        </div>
+    <div className={styles['blog-post-container']}>
+
+      <p className="inner-page-title">Blog</p>
+      
+      <div className={styles['breadcrumbs']}>
+        <Link href="/" className={styles['breadcrumb-item']}>
+          Inicio <i className="fas fa-angle-right" aria-hidden="true"></i>
+        </Link>
+        <Link href="/blog" className={styles['breadcrumb-item']}>
+          Blog <i className="fas fa-angle-right" aria-hidden="true"></i>
+        </Link>
+        <span className={styles['breadcrumb-item']}>
+          {post.title}
+        </span>
       </div>
 
-      {/* Main Content Section */}
-      <section className="main-content">
-        <div className="container">
-          <div className="row">
-            {/* Left Column: Blog Post */}
-            <div className="col-md-12">
-              <div className="post-wrap">
-                <article className="main-post">
-                  <div className="entry-post-title">
-                    <h2 className="post-title">
-                      <Link href={`/blog/${params.slug}`} title="">
-                        {post.title}
-                      </Link>
-                    </h2>
-                    <ul className="entry-meta">
-                      <li className="date">
-                        {post.date || 'N/A'}
-                      </li>
-                      {post.author && (
-                        <li className="author">
-                          {post.author}
-                        </li>
-                      )}
-                      {post.category && (
-                        <li className="categories">
-                          {post.category}
-                        </li>
-                      )}
-                    </ul>
-                  </div>
-
-                  {/* Featured Image (optional) */}
-                  {post.srcimg && (
-                    <div className="featured-post">
-                      <div className="relative w-full h-96">
-                        <Image 
-                          src={post.srcimg}
-                          alt={post.title}
-                          fill
-                          priority
-                          className="object-cover"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        />
-                      </div>
-                    </div>
-                  )}
-
-                  {/* The Markdown content as HTML */}
-                  <div className="entry-content">
-                    <div
-                      dangerouslySetInnerHTML={{ __html: post.content }}
-                    />
-                  </div>
-                </article>
-              </div>
-            </div>
+      <article>
+        <header className={styles['post-header']}>
+          <h1 className={styles['post-title']}>{post.title}</h1>
+          
+          <div className={styles['post-meta']}>
+            <span className={styles['date']}>
+              <i className="fas fa-calendar" aria-hidden="true"></i> {post.date || 'N/A'}
+            </span>
+            
+            {post.author && (
+              <span className={styles['author']}>
+                <i className="fas fa-user" aria-hidden="true"></i> {post.author}
+              </span>
+            )}
+            
+            {post.category && (
+              <span className={styles['category']}>
+                <i className="fas fa-folder" aria-hidden="true"></i> {post.category}
+              </span>
+            )}
           </div>
-        </div>
-      </section>
-    </>
+        </header>
+
+        {post.srcimg && (
+          <div className={styles['featured-image']}>
+            <Image 
+              src={post.srcimg}
+              alt={post.title}
+              fill
+              priority
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+            />
+          </div>
+        )}
+
+        <div 
+          className={styles['post-content']}
+          dangerouslySetInnerHTML={{ __html: post.content }}
+        />
+      </article>
+
+      
+
+    </div>
   );
 }

@@ -17,7 +17,7 @@ async function SobreNosotros() {
           <h2 className="centered">Una Historia de Esfuerzo y Adaptación</h2>
 
           <figure className={styles['left-img']}>
-              <img src="images/sobre-nosotros/connie-palma-caribbean-veener.jpg" width={'50%'}/>
+              <img src="/images/sobre-nosotros/connie-palma-caribbean-veener.jpg" width={'50%'}/>
               <figcaption>Iniciando mi carrera en 1985. Caribbean Veneer Co.</figcaption>
           </figure>
 
@@ -32,7 +32,7 @@ async function SobreNosotros() {
           <p>Mi pasión por la contabilidad radica en ayudar a cada negocio a alcanzar un orden financiero sólido y a tomar decisiones estratégicas que impulsen su crecimiento. En ContabilidadCostaRica.net, mi equipo y yo nos esforzamos por ofrecer soluciones contables integrales, confiables y adaptadas a la realidad de cada cliente. Creemos en la transparencia, la cercanía y el profesionalismo como pilares fundamentales de nuestro trabajo, y estamos comprometidos con acompañarlo en cada paso hacia el éxito financiero de su empresa.</p>
           
           <figure className={styles['right-img']}>
-              <img src="images/sobre-nosotros/connie-2016-distribuidora-olman.jpg" width={'50%'}/>
+              <img src="/images/sobre-nosotros/connie-2016-distribuidora-olman.jpg" width={'50%'}/>
               <figcaption>2016. Distribuidora Olman S.A.</figcaption>
           </figure>
           

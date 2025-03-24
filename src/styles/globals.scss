@@ -57,6 +57,7 @@
   --white: #ffffff;
   --dark-gray: #424242;
   --light-gray: #f7f7f7;
+  --meta-gray: #888;
   --dark-green: #066d3b;
   --light-green: #289b5b;
   --active-green: #23b364;
@@ -83,7 +84,6 @@ body {
   h1{
     @apply w-full;
     @apply text-2xl sm:text-4xl font-semibold text-gray-900 mb-10 text-center;
-
 
     &:after {
       @apply content-[''] block h-1 w-24 bg-green-500 mt-2 mb-8 mx-auto;
@@ -119,6 +119,7 @@ body {
   }
 
   .inner-page-title{
+    @apply text-2xl sm:text-4xl font-semibold mb-10 text-center;
     @apply bg-light-gray text-dark-green font-[600] py-10 w-screen relative;
     left: -1.5rem;
 

@@ -11,6 +11,7 @@ module.exports = {
         'white': "var(--white)",
         'dark-gray': "var(--foreground)",
         'light-gray': "var(--light-gray)",
+        'meta-gray': "var(--meta-gray)",
         'dark-green': "var(--dark-green)",
         'light-green': "var(--light-green)",
         'active-green': "var(--active-green)",
@@ -32,5 +33,10 @@ module.exports = {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 };
+
+
+

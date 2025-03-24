@@ -1,107 +1,157 @@
+// File: src/app/blog/page.tsx
+
+import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { getAllPosts } from '../../../lib/markdown';
-import { Metadata } from 'next';
+import styles from '@/styles/blog.module.scss';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 export const metadata: Metadata = {
   title: 'Blog',
   description: 'Nuestros artículos más recientes',
 };
 
-export default function BlogPage() {
-  const posts = getAllPosts();
+export default function BlogPage({
+  searchParams
+}: {
+  searchParams: { categories?: string }
+}) {
+  // Get categories from URL query parameter (comma-separated string)
+  const activeCategories = searchParams.categories ? searchParams.categories.split(',') : [];
+  
+  // Get all posts and filter if needed
+  const allPosts = getAllPosts();
+  const posts = activeCategories.length > 0
+    ? allPosts.filter(post => post.category && activeCategories.includes(post.category))
+    : allPosts;
+    
+  // Extract all unique categories from posts
+  const categories = Array.from(
+    new Set(allPosts.map(post => post.category).filter(Boolean) as string[])
+  );
 
   return (
-    <>
-      <div className="page-title">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <div className="page-title-heading">
-                <h1 className="h1-title">Blog</h1>
-              </div>
-              <ul className="breadcrumbs">
-                <li>
-                  <Link href="/" title="">
-                    Inicio <i className="fa fa-angle-right" aria-hidden="true"></i>
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/blog" title="">
-                    Blog
-                  </Link>
-                </li>
-              </ul>
-              <div className="clearfix"></div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className={styles['blog-container']}>
+      <section className={styles['blog-main']}>
+        <h1 className="inner-page-title">Blog</h1>
+        
+        <h2 className='centered'>Nuestros artículos más recientes</h2>
+        
+        <p className={styles['centered']}>
+          Mantente al día con las últimas actualizaciones y consejos sobre contabilidad y finanzas.
+        </p>
 
-      {/* Main Content Section */}
-      <section className="main-content blog-posts">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <div className="blog-listing">
-                {posts.length === 0 ? (
-                  <div className="text-center py-10">
-                    <h3>No hay artículos publicados aún.</h3>
-                  </div>
-                ) : (
-                  <div className="post-wrap">
-                    {posts.map((post) => (
-                      <article className="entry clearfix" key={post.slug}>
-                        {post.srcimg && (
-                          <div className="feature-post">
-                            <Link href={`/blog/${post.slug}`}>
-                              <div className="relative w-full h-64">
-                                <Image
-                                  src={post.srcimg}
-                                  alt={post.title}
-                                  fill
-                                  className="object-cover"
-                                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                />
-                              </div>
-                            </Link>
+        <div className={styles['content-wrapper']}>
+          <div className={styles['posts-container']}>
+            {posts.length === 0 ? (
+              <div className={styles['no-posts']}>
+                <h3>No hay artículos publicados en esta categoría.</h3>
+              </div>
+            ) : (
+              <div className={styles['blog-grid']}>
+                {posts.map((post) => (
+                  <div className={styles['card']} key={post.slug}>
+                    {post.srcimg && (
+                      <div className={styles['image']}>
+                        <Link href={`/blog/${post.slug}`}>
+                          <div className="relative w-full h-full">
+                            <Image
+                              src={post.srcimg}
+                              alt={post.title}
+                              fill
+                              className="object-cover"
+                            />
                           </div>
-                        )}
-                        <div className="main-post">
-                          <h2 className="title-post">
-                            <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-                          </h2>
-                          <ul className="meta-post">
-                            <li className="date">
-                              <Link href={`/blog/${post.slug}`}>{post.date}</Link>
-                            </li>
-                            {post.author && (
-                              <li className="author">
-                                <Link href={`/blog/${post.slug}`}>{post.author}</Link>
-                              </li>
-                            )}
-                            {post.category && (
-                              <li className="categories">
-                                <Link href={`/blog/${post.slug}`}>{post.category}</Link>
-                              </li>
-                            )}
-                          </ul>
-                          <div className="entry-post">
-                            <p>{post.excerpt || post.content.substring(0, 150).replace(/<[^>]*>/g, '')}...</p>
-                            <div className="read-more">
-                              <Link href={`/blog/${post.slug}`}>Leer más</Link>
-                            </div>
-                          </div>
+                        </Link>
+                      </div>
+                    )}
+                    
+                    <div className={styles['content']}>
+                      <div className={styles['meta']}>
+                        <div className={styles['meta-row']}>
+                          <span className={styles['date']}>
+                            <i className="fas fa-calendar" aria-hidden="true"></i> {post.date}
+                          </span>
+                          
+                          {post.author && (
+                            <span className={styles['author']}>
+                              <i className="fas fa-user" aria-hidden="true"></i> {post.author}
+                            </span>
+                          )}
+                          
+                          {post.category && (
+                            <span className={styles['category']}>
+                              <i className="fas fa-folder" aria-hidden="true"></i> {post.category}
+                            </span>
+                          )}
                         </div>
-                      </article>
-                    ))}
+                      </div>
+
+                      <h3 className={styles['title']}>
+                        <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+                      </h3>
+                      
+                      <div className={styles['excerpt']}>
+                        <p>
+                          {post.excerpt || 
+                          (typeof post.content === 'string' ? 
+                            post.content.substring(0, 150).replace(/<[^>]*>/g, '') : 
+                            '')}...
+                        </p>
+                      </div>
+                      
+                      <div className={styles['read-more']}>
+                        <Link href={`/blog/${post.slug}`}>
+                          Leer Más <i className="fas fa-arrow-right" aria-hidden="true"></i>
+                        </Link>
+                      </div>
+                    </div>
                   </div>
-                )}
+                ))}
+              </div>
+            )}
+          </div>
+
+          <aside className={styles['blog-sidebar']}>
+            <div className={styles['categories-filter']}>
+              <h3 className={styles['filter-title']}>FILTRAR POR CATEGORÍAS</h3>
+              
+              <div className={styles['categories-list']}>
+                {categories.map(category => {
+                  // Check if this category is currently active
+                  const isActive = activeCategories.includes(category);
+                  
+                  // Create a new array of categories based on adding/removing this one
+                  let newCategories;
+                  if (isActive) {
+                    // Remove this category if it's already active
+                    newCategories = activeCategories.filter(c => c !== category);
+                  } else {
+                    // Add this category if it's not already active
+                    newCategories = [...activeCategories, category];
+                  }
+                  
+                  // Create the URL for this category link
+                  const href = newCategories.length > 0 
+                    ? `/blog?categories=${newCategories.join(',')}`
+                    : '/blog';
+                    
+                  return (
+                    <Link
+                      key={category}
+                      href={href}
+                      className={`${styles['category-item']} ${isActive ? styles['active'] : ''}`}
+                    >
+                      {category}
+                    </Link>
+                  );
+                })}
               </div>
             </div>
-          </div>
+          </aside>
         </div>
       </section>
-    </>
+    </div>
   );
 }

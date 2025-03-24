@@ -1,0 +1,120 @@
+/* Contact Page Styles */
+
+.contact-container {
+  @apply max-w-7xl mx-auto px-4 sm:px-6;
+}
+
+.contact-section {
+  @apply pb-0 md:pb-8 pt-0 md:pt-4 lg:pt-8;
+}
+
+.content-wrapper {
+  @apply grid grid-cols-1 lg:grid-cols-12 gap-x-12 gap-y-8;
+}
+
+.contact-info {
+  @apply lg:col-span-4 space-y-2 lg:space-y-8;
+  
+  .info-card {
+    @apply flex flex-col;
+    
+    .icon {
+      @apply text-dark-green text-2xl mb-1 hidden;
+    }
+    
+    .info-content {
+      @apply w-full;
+      
+      .info-title {
+        @apply text-xl font-bold mb-2 text-dark-gray;
+      }
+      
+      .info-text {
+        @apply text-gray-700;
+      }
+    }
+  }
+}
+
+.contact-form {
+  @apply lg:col-span-8;
+  
+  .form {
+    @apply w-full;
+    
+    .form-grid {
+      @apply grid grid-cols-1 lg:grid-cols-2 gap-6;
+    }
+    
+    .form-left {
+      @apply flex flex-col justify-between gap-6;
+
+    }
+    
+    .form-right {
+      @apply h-full;
+    }
+    
+    .input-group {
+      @apply flex w-full;
+    }
+    
+    .input {
+      @apply w-full px-4 py-3 bg-gray-50 border border-gray-200;
+      @apply focus:outline-none focus:ring-1 focus:ring-light-green focus:border-light-green;
+      @apply text-gray-700 placeholder-gray-400;
+      @apply transition-all duration-200;
+    }
+    
+    .textarea {
+      @apply w-full h-full px-4 py-3 bg-gray-50 border border-gray-200 resize-none;
+      @apply focus:outline-none focus:ring-1 focus:ring-light-green focus:border-light-green;
+      @apply text-gray-700 placeholder-gray-400;
+      @apply transition-all duration-200;
+      @apply min-h-[140px] lg:min-h-[280px]
+    }
+    
+    .submit-container {
+      @apply mt-6 flex flex-col-reverse md:flex-row;
+
+      .submit-button{
+        @apply w-full ml-auto mr-0 block;
+
+        @media (min-width: 1024px) {
+          width: calc(50% - 0.8rem);
+        }
+      }
+    }
+    
+    .submit-button {
+      @apply w-full bg-dark-green text-white text-center px-6 py-3 uppercase font-medium tracking-wider;
+      @apply hover:bg-active-green;
+      @apply transition-colors duration-200;
+      @apply disabled:opacity-70 disabled:cursor-not-allowed;
+    }
+    
+    .result-container {
+      @apply mt-4 min-h-[1.5rem];
+      
+      .error-message {
+        @apply text-red-600 font-medium;
+      }
+      
+      .success-message {
+        @apply text-green-600 font-medium;
+      }
+    }
+  }
+}
+
+.map-section {
+  @apply w-screen h-[200px] md:h-[450px] mt-12 relative left-[-1.5rem];
+
+  @media (min-width: 1280px){
+    left: calc( (100vw - 1232px) / 2 * -1 );
+  }
+  
+  iframe {
+    @apply w-full h-full;
+  }
+}
