@@ -11,7 +11,7 @@ import Software from "@/components/Software/Software";
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Contabilidad Costa Rica | Servicios contables de confianza, calidad, y accesibles',
+  title: 'Contabilidad Costa Rica | Servicios contables accesibles y confiables',
   description: 'Ofrecemos servicios contables para la micro, pequeña y mediana empresa en Costa Rica. Gestión Tributaria, estados financieros, asesorías.'
 }
 
