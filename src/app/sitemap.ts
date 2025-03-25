@@ -7,7 +7,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const posts = getAllPostSlugs();
   
   // Your site's base URL
-  const baseUrl = 'https://contabilidadcostarica.net';
+  const baseUrl = 'https://www.contabilidadcostarica.net';
   
   // Generate sitemap entries for blog posts
   const blogUrls = posts.map((post) => ({
