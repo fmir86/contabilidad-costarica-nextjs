@@ -23,11 +23,11 @@
           .title {
             @apply relative pb-1 sm:pb-2 md:py-4 px-6 bg-light-green lg:mb-6 md:min-h-[60px];
             @apply transition-all duration-300 ease-in-out;
-            @apply left-[-1.5rem];
+            @apply left-[-1.5rem] mb-0;
             width: calc(100% + 3rem);
           
             h3{
-              @apply text-lg lg:text-xl font-semibold text-white;
+              @apply text-lg lg:text-xl font-semibold text-white my-0;
             }
           }
               
