@@ -4,7 +4,7 @@ import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
 import "../styles/globals.scss";
 import { GoogleAnalytics } from '@next/third-parties/google'
-
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 
 export const metadata: Metadata = {
@@ -35,6 +35,7 @@ export const metadata: Metadata = {
           {children}
         </main>
         <Footer />
+        <SpeedInsights />
       </body>
       <GoogleAnalytics gaId="G-G4FN6X5HJL" />
     </html>
