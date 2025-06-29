@@ -75,8 +75,21 @@
     
                 li{
                     a{
-                        @apply ml-6;
+                        @apply ml-6 relative;
                         @apply hover:text-light-green transition-colors duration-300;
+
+                        &::after {
+                            @apply content-[''] absolute left-0 -bottom-[1px] w-full h-[2px] bg-light-green scale-x-0;
+                        }
+
+
+                        &.active {
+                            @apply text-light-green relative;
+                            
+                            &::after {
+                                @apply scale-x-100 transition-transform duration-300 ease-in-out;
+                            }
+                        }
                     }
                 }
             }

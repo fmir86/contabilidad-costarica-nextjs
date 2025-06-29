@@ -6,6 +6,16 @@ import { getAllPostSlugs, getPostBySlug } from '../../../../lib/markdown';
 import styles from '@/styles/blog-page.module.scss';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+// Helper function to parse reference string and extract URL
+const parseReference = (ref: string) => {
+  // Extract the URL from the end of the reference string
+  const urlMatch = ref.match(/https?:\/\/[^\s]+$/);
+  const url = urlMatch ? urlMatch[0] : '';
+  const text = url ? ref.replace(url, '').trim() : ref;
+  
+  return { text, url };
+};
+
 // Generate all static paths at build time
 export async function generateStaticParams() {
   const posts = getAllPostSlugs();
@@ -43,6 +53,24 @@ export default async function BlogPost({ params }: { params: { slug: string } })
   if (!post) {
     notFound();
   }
+
+  // Generate references HTML if they exist
+  const referencesHtml = post.references && post.references.length > 0 
+    ? `
+      <h2>Referencias</h2>
+      <small>
+        <ol>
+          ${post.references.map((ref: string) => {
+            const { text, url } = parseReference(ref);
+            return `<li>${url ? `${text} <a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>` : text}</li>`;
+          }).join('')}
+        </ol>
+      </small>
+    `
+    : '';
+
+  // Combine post content with references
+  const fullContent = post.content + referencesHtml;
 
   return (
     <div className={styles['blog-post-container']}>
@@ -99,12 +127,11 @@ export default async function BlogPost({ params }: { params: { slug: string } })
 
         <div 
           className={styles['post-content']}
-          dangerouslySetInnerHTML={{ __html: post.content }}
+          dangerouslySetInnerHTML={{ __html: fullContent }}
         />
+
+        {/* References are now included in the content above */}
       </article>
-
-      
-
     </div>
   );
 }

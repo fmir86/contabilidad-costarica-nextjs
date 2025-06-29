@@ -1,6 +1,7 @@
 "use client";
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import styles from './Header.module.scss';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,7 +12,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 
 const Header = () => {
-
+    const pathname = usePathname();
     const mainNav = useRef<HTMLElement>(null);
 
     const expandMobileMenu = () => {
@@ -54,6 +55,13 @@ const Header = () => {
         }
     }
 
+    const isActiveLink = (href: string) => {
+        if (href === '/') {
+            return pathname === '/';
+        }
+        return pathname.startsWith(href);
+    };
+
     useEffect(() => {
         const mediaQuery = window.matchMedia("(min-width: 768px)");
     
@@ -68,7 +76,6 @@ const Header = () => {
         mediaQuery.addEventListener("change", handleMediaChange);
         return () => mediaQuery.removeEventListener("change", handleMediaChange);
       }, []);
-
 
     return (
         <header className={styles['main-header']}>
@@ -103,19 +110,29 @@ const Header = () => {
 
                     <ul>
                         <li>
-                            <Link href="/">INICIO</Link>
+                            <Link href="/" className={isActiveLink('/') ? styles['active'] : ''}>
+                                INICIO
+                            </Link>
                         </li>
                         <li>
-                            <Link href="/sobre-nosotros">SOBRE NOSOTROS</Link>
+                            <Link href="/sobre-nosotros" className={isActiveLink('/sobre-nosotros') ? styles['active'] : ''}>
+                                SOBRE NOSOTROS
+                            </Link>
                         </li>
                         <li>
-                            <Link href="/servicios">SERVICIOS</Link>
+                            <Link href="/servicios" className={isActiveLink('/servicios') ? styles['active'] : ''}>
+                                SERVICIOS
+                            </Link>
                         </li>
                         <li>
-                            <Link href="/blog">BLOG</Link>
+                            <Link href="/blog" className={isActiveLink('/blog') ? styles['active'] : ''}>
+                                BLOG
+                            </Link>
                         </li>
                         <li>
-                            <Link href="/contacto">CONTACTO</Link>
+                            <Link href="/contacto" className={isActiveLink('/contacto') ? styles['active'] : ''}>
+                                CONTACTO
+                            </Link>
                         </li>
                     </ul>
 

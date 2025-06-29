@@ -1,5 +1,12 @@
+import { Metadata } from 'next';
 import React from 'react';
 import styles from '@/styles/servicios.module.scss';
+
+export const metadata: Metadata = {
+  title: 'Contabilidad Costa Rica | Servicios',
+  description: 'Ofrecemos una gran gama de servicios contables y financieros a la medida. Para la pequeña empresa y el profesional independiente.',
+};
+
 
 // Definición de interfaces para los tipos de datos
 

@@ -8,8 +8,8 @@ import styles from '@/styles/blog.module.scss';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 export const metadata: Metadata = {
-  title: 'Blog',
-  description: 'Nuestros artículos más recientes',
+  title: 'Contabilidad Costa Rica | Blog',
+  description: 'Nuestros artículos más recientes sobre contabilidad y finanzas en Costa Rica. Mantente al día con las últimas actualizaciones y consejos.',
 };
 
 export default function BlogPage({

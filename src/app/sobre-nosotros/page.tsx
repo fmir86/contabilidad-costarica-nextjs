@@ -1,13 +1,14 @@
+import { Metadata } from 'next';
 import Head from "next/head";
 import styles from '@/styles/sobre-nosotros.module.scss';
 
+export const metadata: Metadata = {
+  title: 'Contabilidad Costa Rica | Sobre Nosotros',
+  description: 'Descubre cómo en Contabilidad Costa Rica unimos responsabilidad, profesionalismo y confianza para ofrecerle servicios contables integrales.',
+};
+
+
 async function SobreNosotros() {
-
-  <Head>
-    <title>Contabilidad Costa Rica | Servicios contables de confianza, calidad, y accesibles</title>
-    <meta name="description" content="Ofrecemos servicios contables para la micro, pequeña y mediana empresa en Costa Rica. Gestión Tributaria, estados financieros, asesorías." />
-  </Head>
-
   return (
     <section className={styles['sobre-nosotros']}>
       

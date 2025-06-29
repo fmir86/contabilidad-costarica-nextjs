@@ -3,6 +3,7 @@
 import React from 'react';
 import { FunctionComponent } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {faEnvelope,faPhone,faLocationDot} from '@fortawesome/free-solid-svg-icons';
@@ -11,6 +12,15 @@ import styles from './Footer.module.scss';
 import NewsletterForm from '../NewsletterForm/NewsletterForm';
 
 const Footer: FunctionComponent = () => {
+  const pathname = usePathname();
+
+  const isActiveLink = (href: string) => {
+    if (href === '/') {
+      return pathname === '/';
+    }
+    return pathname.startsWith(href);
+  };
+
   return (
     <footer className={styles.footer}>
       {/* CONTACT ROW */}
@@ -66,27 +76,42 @@ const Footer: FunctionComponent = () => {
         <div className={`${styles.col} ${styles.navItems}`}>
           <ul className={styles.nav}>
             <li>
-              <Link href="/">
+              <Link 
+                href="/"
+                className={isActiveLink('/') ? styles['active'] : ''}
+              >
                 INICIO
               </Link>
             </li>
             <li>
-              <Link href="/sobre-nosotros">
+              <Link 
+                href="/sobre-nosotros"
+                className={isActiveLink('/sobre-nosotros') ? styles['active'] : ''}
+              >
                 SOBRE NOSOTROS
               </Link>
             </li>
             <li>
-              <Link href="/servicios">
+              <Link 
+                href="/servicios"
+                className={isActiveLink('/servicios') ? styles['active'] : ''}
+              >
                 SERVICIOS
               </Link>
             </li>
             <li>
-              <Link href="/blog">
+              <Link 
+                href="/blog"
+                className={isActiveLink('/blog') ? styles['active'] : ''}
+              >
                 BLOG
               </Link>
             </li>
             <li>
-              <Link href="/contacto">
+              <Link 
+                href="/contacto"
+                className={isActiveLink('/contacto') ? styles['active'] : ''}
+              >
                 CONTACTO
               </Link>
             </li>

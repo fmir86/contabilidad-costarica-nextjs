@@ -6,11 +6,13 @@ import matter from 'gray-matter';
 interface Post {
   slug: string;
   title: string;
+  excerpt?: string;
   datapost: string;
   srcimg: string;
   description?: string;
   author?: string;
   category?: string;
+  references?: string[];
 }
 
 interface FormattedPost extends Post {

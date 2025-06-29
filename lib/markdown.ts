@@ -9,11 +9,12 @@ const postsDirectory = path.join(process.cwd(), 'blogposts');
 export interface BlogPost {
   slug: string;
   title: string;
+  excerpt?: string;
   date?: string;
   author?: string;
   category?: string;
-  excerpt?: string;
   srcimg?: string;
+  references?: string[]; // Nueva propiedad para las referencias
   content: string;
   [key: string]: unknown; // For any additional frontmatter
 }

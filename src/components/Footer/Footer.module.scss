@@ -73,12 +73,16 @@
         &.navItems{
             li{
                 a{
+                    @apply text-white font-[200] hover:no-underline hover:text-light-green;
+
+
                     &::before{
                         @apply content-['■'] inline-block mr-2 text-[#289b5b];
                     }
 
-                    @apply text-white font-[200] hover:no-underline hover:text-light-green;
-
+                    &.active {
+                      @apply text-light-green;
+                    }
                 }
             }
         }

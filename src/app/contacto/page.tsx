@@ -5,8 +5,8 @@ import nodemailer from 'nodemailer';
 import { ContactForm } from '@/components/ContactForm/ContactForm';
 
 export const metadata: Metadata = {
-  title: 'Contáctenos',
-  description: 'Póngase en contacto con nosotros para obtener más información',
+  title: 'Contabilidad Costa Rica | Contáctenos',
+  description: 'Contáctenos para obtener más información sobre nuestros servicios contables a la medida.',
 };
 
 // Server action for form submission
