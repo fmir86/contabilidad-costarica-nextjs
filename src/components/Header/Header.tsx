@@ -41,7 +41,13 @@ const Header = () => {
         }
     }
 
+    const collapseMobileMenu = () => {
+        if(!mainNav.current?.classList.contains(styles['expanded'])) return;
+        setTimeout(() => expandMobileMenu(), 500);
+    }
+
     const toggleHamburger = (action:string) => {
+        console.log(`Hamburger action: ${action}`);
         const q = gsap.utils.selector(mainNav.current);
         if(action === 'open') {
             gsap.to(q(`span.center`), {duration:0.1, scaleX:0, opacity:0, ease: 'sine.out'});
@@ -110,27 +116,27 @@ const Header = () => {
 
                     <ul>
                         <li>
-                            <Link href="/" className={isActiveLink('/') ? styles['active'] : ''}>
+                            <Link href="/" className={isActiveLink('/') ? styles['active'] : ''} onClick={ collapseMobileMenu }>
                                 INICIO
                             </Link>
                         </li>
                         <li>
-                            <Link href="/sobre-nosotros" className={isActiveLink('/sobre-nosotros') ? styles['active'] : ''}>
+                            <Link href="/sobre-nosotros" className={isActiveLink('/sobre-nosotros') ? styles['active'] : ''} onClick={ collapseMobileMenu }>
                                 SOBRE NOSOTROS
                             </Link>
                         </li>
                         <li>
-                            <Link href="/servicios" className={isActiveLink('/servicios') ? styles['active'] : ''}>
+                            <Link href="/servicios" className={isActiveLink('/servicios') ? styles['active'] : ''} onClick={ collapseMobileMenu }>
                                 SERVICIOS
                             </Link>
                         </li>
                         <li>
-                            <Link href="/blog" className={isActiveLink('/blog') ? styles['active'] : ''}>
+                            <Link href="/blog" className={isActiveLink('/blog') ? styles['active'] : ''} onClick={ collapseMobileMenu }>
                                 BLOG
                             </Link>
                         </li>
                         <li>
-                            <Link href="/contacto" className={isActiveLink('/contacto') ? styles['active'] : ''}>
+                            <Link href="/contacto" className={isActiveLink('/contacto') ? styles['active'] : ''} onClick={ collapseMobileMenu }>
                                 CONTACTO
                             </Link>
                         </li>
