@@ -15,7 +15,7 @@
 
             .content{
                 @apply top-0 left-0 w-full h-full flex flex-col justify-center p-6;
-                @apply relative mx-auto max-w-7xl text-white;
+                @apply relative mx-auto max-w-7xl text-white z-[1];
 
                 .heading{
                     @apply leading-[1] text-2xl sm:text-3xl md:text-5xl font-[600] tracking-wide max-w-[40rem];
@@ -33,12 +33,28 @@
                 }
 
             }
-        }    
+
+            &::after {
+                content: "";
+                display: block;
+                background: linear-gradient(90deg, #585858, transparent);
+                width: 70%;
+                height: 100%;
+                position: absolute;
+                top: 0;
+                mix-blend-mode: multiply;
+                z-index: 0;
+            }
+        }
+
+        .slide.active{
+            @apply block;
+        }
     }
 
     .controls{
         @apply hidden md:flex;
-        @apply absolute bottom-4 w-full justify-center;
+        @apply absolute bottom-4 w-full justify-center z-[2];
 
         button{
             @apply w-4 h-4 bg-white hover:bg-light-green mx-2 transition-all duration-300;

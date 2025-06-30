@@ -19,6 +19,16 @@
           "url": "/contacto",
           "target": "_self"
         }
+      },
+      {
+        "image": "/images/home-slides/slide3.jpg",
+        "title": "Gestión Tributaria Eficiente",
+        "description": "Delegue su gestión tributaria a verdaderos expertos.",
+        "cta": {
+          "label": "Solicitar Asesoría",
+          "url": "/contacto",
+          "target": "_self"
+        }
       }
     ],
     "settings": {
