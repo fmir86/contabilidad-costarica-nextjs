@@ -3,6 +3,7 @@ import React from 'react';
 import Link from 'next/link';
 import { getAllServices } from '../../../lib/markdown';
 import styles from '@/styles/servicios.module.scss';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 export const metadata: Metadata = {
   title: 'Contabilidad Costa Rica | Servicios',
@@ -24,34 +25,29 @@ const Servicios: React.FC = () => {
 
       <div className={styles['services-grid']}>
         {services.map((service) => (
-          <Link href={`/servicios/${service.slug}`} key={service.slug} className={`${styles['card']}`}>
+          <div className={`${styles['card']}`} key={service.slug}>
             <div className={`${styles['image']}`}>
-              <img src={service.imgsrc || '/images/servicios/default-service.jpg'} alt={service.title} />
+              <Link href={`/servicios/${service.slug}`}>
+                <img src={service.imgsrc || '/images/servicios/default-service.jpg'} alt={service.title} />
+              </Link>
             </div>
             <div className={`${styles['content']}`}>
               <h3 className={`${styles['title']}`}>
-                {service.title}
+                <Link href={`/servicios/${service.slug}`}>{service.title}</Link>
               </h3>
               <div className={`${styles['description']}`}>{service.description}</div>
               {service.price && (
-                <div className={`${styles['price']}`} style={{
-                  marginTop: '1rem',
-                  fontWeight: 'bold',
-                  color: '#007bff'
-                }}>
+                <div className={`${styles['price']}`}>
                   {service.price}
                 </div>
               )}
-              <div className={`${styles['learn-more']}`} style={{
-                marginTop: '1rem',
-                color: '#007bff',
-                fontSize: '0.9rem',
-                fontWeight: '600'
-              }}>
-                Ver detalles →
+              <div className={`${styles['read-more']}`}>
+                <Link href={`/servicios/${service.slug}`}>
+                  Leer Más <i className="fas fa-arrow-right" aria-hidden="true"></i>
+                </Link>
               </div>
             </div>
-          </Link>
+          </div>
         ))}
       </div>
     </section>
