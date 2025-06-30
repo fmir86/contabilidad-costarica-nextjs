@@ -1,44 +1,57 @@
 "use client";
 
-import { useRef, useState, useTransition } from 'react';
+import { useRef, useState } from 'react';
 import styles from '@/styles/contacto.module.scss';
 
-// Define the type for the server action
-type FormSubmitAction = (formData: FormData) => Promise<{
-  success: boolean;
-  message: string;
-}>;
-
-interface ContactFormProps {
-  sendContactForm: FormSubmitAction;
-}
-
-export function ContactForm({ sendContactForm }: ContactFormProps) {
-  const [isPending, startTransition] = useTransition();
-  const [formStatus, setFormStatus] = useState<{ type: 'success' | 'error' | null; message: string }>({
-    type: null,
-    message: '',
-  });
+export function ContactForm() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [message, setMessage] = useState<string>('');
+  const [isError, setIsError] = useState<boolean>(false);
   const formRef = useRef<HTMLFormElement>(null);
 
-  async function handleSubmit(formData: FormData) {
-    startTransition(async () => {
-      const result = await sendContactForm(formData);
-      
-      setFormStatus({
-        type: result.success ? 'success' : 'error',
-        message: result.message,
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setMessage('');
+    setIsError(false);
+
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      name: formData.get('name'),
+      email: formData.get('email'),
+      subject: formData.get('subject'),
+      phone: formData.get('phone'),
+      message: formData.get('message'),
+    };
+
+    try {
+      const response = await fetch('/api/sendEmail', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
       });
 
-      if (result.success && formRef.current) {
-        formRef.current.reset();
+      const result = await response.json();
+      
+      if (response.ok) {
+        setMessage(result.message);
+        setIsError(false);
+        formRef.current?.reset();
+      } else {
+        setMessage(result.message);
+        setIsError(true);
       }
-    });
-  }
+    } catch (error) {
+      setMessage('Error al enviar el formulario');
+      setIsError(true);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className={styles['contact-form']}>
-      <form ref={formRef} action={handleSubmit} className={styles['form']}>
+      <form ref={formRef} onSubmit={handleSubmit} className={styles['form']}>
         <div className={styles['form-grid']}>
           <div className={styles['form-left']}>
             <div className={styles['input-group']}>
@@ -95,21 +108,20 @@ export function ContactForm({ sendContactForm }: ContactFormProps) {
         </div>
 
         <div className={styles['submit-container']}>
-
           <div className={styles['result-container']}>
-            {formStatus.type && (
-                <p className={styles[`${formStatus.type}-message`]}>
-                    {formStatus.message}
-                </p>
+            {message && (
+              <p className={styles[isError ? 'error-message' : 'success-message']}>
+                {message}
+              </p>
             )}
           </div>
 
           <button 
             type="submit" 
             className={styles['submit-button']}
-            disabled={isPending}
+            disabled={isSubmitting}
           >
-            {isPending ? 'ENVIANDO...' : 'ENVIAR'}
+            {isSubmitting ? 'ENVIANDO...' : 'ENVIAR'}
           </button>
         </div>
       </form>

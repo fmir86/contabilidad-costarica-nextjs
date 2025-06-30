@@ -1,72 +1,12 @@
 // File: src/app/contacto/page.tsx
 import { Metadata } from 'next';
 import styles from '@/styles/contacto.module.scss';
-import nodemailer from 'nodemailer';
 import { ContactForm } from '@/components/ContactForm/ContactForm';
 
 export const metadata: Metadata = {
   title: 'Contabilidad Costa Rica | Contáctenos',
   description: 'Contáctenos para obtener más información sobre nuestros servicios contables a la medida.',
 };
-
-// Server action for form submission
-async function sendContactForm(formData: FormData) {
-  'use server';
-
-  try {
-    // Extract form data
-    const name = formData.get('name') as string;
-    const email = formData.get('email') as string;
-    const subject = formData.get('subject') as string;
-    const phone = formData.get('phone') as string;
-    const message = formData.get('message') as string;
-    
-    // Server-side validation
-    if (!name || !email || !subject || !phone || !message) {
-      throw new Error('Todos los campos son obligatorios');
-    }
-    
-    // Configure transport
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT),
-      secure: process.env.SMTP_SECURE === 'true',
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
-
-    // Build email
-    const mailOptions = {
-      from: `"Formulario Web" <${process.env.SMTP_USER}>`,
-      to: process.env.RECIPIENT_EMAIL || process.env.SMTP_USER,
-      subject: 'Nuevo mensaje desde contabilidadcostarica.net',
-      text: `Interés: ${subject}\nNombre: ${name}\nEmail: ${email}\nTeléfono: ${phone}\nMensaje: ${message}`,
-      html: `
-        <p><strong>Interés:</strong> ${subject}</p>
-        <p><strong>Nombre:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Teléfono:</strong> ${phone}</p>
-        <p><strong>Mensaje:</strong> ${message}</p>
-      `,
-    };
-
-    // Send email
-    await transporter.sendMail(mailOptions);
-    
-    return { 
-      success: true, 
-      message: 'Mensaje enviado correctamente' 
-    };
-  } catch (error) {
-    console.error('Error sending email:', error);
-    return { 
-      success: false, 
-      message: error instanceof Error ? error.message : 'Error al enviar el formulario' 
-    };
-  }
-}
 
 export default function ContactPage() {
   const contactInfo = [
@@ -101,7 +41,7 @@ export default function ContactPage() {
             ))}
           </div>
 
-          <ContactForm sendContactForm={sendContactForm} />
+          <ContactForm />
         </div>
       </section>
 

@@ -51,22 +51,23 @@ const QuickContact: React.FC = () => {
         body: JSON.stringify(formData),
       });
 
-      if (!response.ok) {
-        throw new Error('Error al enviar el formulario');
-      }
-
       const data = await response.json();
-      setSuccess(data.message || 'Mensaje enviado con éxito');
-      
-      // Clear form data on success
-      setFormData({
-        topic: '',
-        username: '',
-        email: '',
-        phone: ''
-      });
+
+      if (response.ok) {
+        setSuccess(data.message || 'Mensaje enviado con éxito');
+        
+        // Clear form data on success
+        setFormData({
+          topic: '',
+          username: '',
+          email: '',
+          phone: ''
+        });
+      } else {
+        setError(data.message || 'Error al enviar el formulario');
+      }
     } catch (error) {
-      setError(error instanceof Error ? error.message : 'Error al enviar el formulario');
+      setError('Error al enviar el formulario');
     } finally {
       setIsSubmitting(false);
     }
