@@ -3,7 +3,8 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { getAllServiceSlugs, getServiceBySlug } from '../../../../lib/markdown';
-import styles from '@/styles/blog-page.module.scss';
+import blogStyles from '@/styles/blog-page.module.scss';
+import serviceStyles from '@/styles/service-detail.module.scss';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 // Generate all static paths at build time
@@ -45,41 +46,41 @@ export default async function ServicePage({ params }: { params: { slug: string }
   }
 
   return (
-    <div className={styles['blog-post-container']}>
+    <div className={blogStyles['blog-post-container']}>
 
       <p className="inner-page-title">Servicios</p>
       
-      <div className={styles['breadcrumbs']}>
-        <Link href="/" className={styles['breadcrumb-item']}>
+      <div className={blogStyles['breadcrumbs']}>
+        <Link href="/" className={blogStyles['breadcrumb-item']}>
           Inicio <i className="fas fa-angle-right" aria-hidden="true"></i>
         </Link>
-        <Link href="/servicios" className={styles['breadcrumb-item']}>
+        <Link href="/servicios" className={blogStyles['breadcrumb-item']}>
           Servicios <i className="fas fa-angle-right" aria-hidden="true"></i>
         </Link>
-        <span className={styles['breadcrumb-item']}>
+        <span className={blogStyles['breadcrumb-item']}>
           {service.title}
         </span>
       </div>
 
       <article>
-        <header className={styles['post-header']}>
-          <h1 className={styles['post-title']}>{service.title}</h1>
+        <header className={blogStyles['post-header']}>
+          <h1 className={blogStyles['post-title']}>{service.title}</h1>
           
-          <div className={styles['post-meta']}>
+          <div className={blogStyles['post-meta']}>
             {service.category && (
-              <span className={styles['category']}>
+              <span className={blogStyles['category']}>
                 <i className="fas fa-folder" aria-hidden="true"></i> {service.category}
               </span>
             )}
             
             {service.price && (
-              <span className={styles['author']}>
+              <span className={blogStyles['author']}>
                 <i className="fas fa-dollar-sign" aria-hidden="true"></i> {service.price}
               </span>
             )}
             
             {service.duration && (
-              <span className={styles['date']}>
+              <span className={blogStyles['date']}>
                 <i className="fas fa-clock" aria-hidden="true"></i> {service.duration}
               </span>
             )}
@@ -87,7 +88,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
         </header>
 
         {service.imgsrc && (
-          <div className={styles['featured-image']}>
+          <div className={blogStyles['featured-image']}>
             <Image 
               src={service.imgsrc}
               alt={service.title}
@@ -100,17 +101,20 @@ export default async function ServicePage({ params }: { params: { slug: string }
         )}
 
         <div 
-          className={styles['post-content']}
+          className={blogStyles['post-content']}
           dangerouslySetInnerHTML={{ __html: service.content }}
         />
 
         {/* Service Features */}
         {service.features && service.features.length > 0 && (
-          <div className={styles['post-content']}>
+          <div className={blogStyles['post-content']}>
             <h2>Características del Servicio</h2>
             <ul>
               {service.features.map((feature, index) => (
-                <li key={index}><i className="fas fa-check" style={{color: '#28a745', marginRight: '8px'}}></i>{feature}</li>
+                <li key={index}>
+                  <i className="fas fa-check text-green-600 mr-2" aria-hidden="true"></i>
+                  {feature}
+                </li>
               ))}
             </ul>
           </div>
@@ -118,11 +122,14 @@ export default async function ServicePage({ params }: { params: { slug: string }
 
         {/* What's Included */}
         {service.included && service.included.length > 0 && (
-          <div className={styles['post-content']}>
+          <div className={blogStyles['post-content']}>
             <h2>¿Qué Incluye?</h2>
             <ul>
               {service.included.map((item, index) => (
-                <li key={index}><i className="fas fa-check-circle" style={{color: '#007bff', marginRight: '8px'}}></i>{item}</li>
+                <li key={index}>
+                  <i className="fas fa-check-circle text-blue-600 mr-2" aria-hidden="true"></i>
+                  {item}
+                </li>
               ))}
             </ul>
           </div>
@@ -130,42 +137,28 @@ export default async function ServicePage({ params }: { params: { slug: string }
 
         {/* Benefits */}
         {service.benefits && service.benefits.length > 0 && (
-          <div className={styles['post-content']}>
+          <div className={blogStyles['post-content']}>
             <h2>Beneficios</h2>
             <ul>
               {service.benefits.map((benefit, index) => (
-                <li key={index}><i className="fas fa-star" style={{color: '#ffc107', marginRight: '8px'}}></i>{benefit}</li>
+                <li key={index}>
+                  <i className="fas fa-star text-yellow-500 mr-2" aria-hidden="true"></i>
+                  {benefit}
+                </li>
               ))}
             </ul>
           </div>
         )}
 
         {/* Call to Action */}
-        <div className={styles['post-content']}>
-          <div style={{ 
-            backgroundColor: '#f8f9fa', 
-            padding: '2rem', 
-            borderRadius: '8px', 
-            textAlign: 'center',
-            marginTop: '2rem',
-            border: '2px solid #e9ecef'
-          }}>
-            <h3 style={{color: '#495057', marginBottom: '1rem'}}>¿Necesita este servicio?</h3>
-            <p style={{marginBottom: '1.5rem', color: '#6c757d'}}>Contáctenos para obtener más información y una cotización personalizada adaptada a sus necesidades específicas.</p>
-            <Link 
-              href="/contacto" 
-              style={{ 
-                backgroundColor: '#007bff', 
-                color: 'white', 
-                padding: '12px 24px', 
-                borderRadius: '4px', 
-                textDecoration: 'none',
-                display: 'inline-block',
-                fontWeight: 'bold',
-                transition: 'background-color 0.3s'
-              }}
-            >
-              <i className="fas fa-envelope" style={{marginRight: '8px'}}></i>
+        <div className={serviceStyles['service-cta']}>
+          <div className={serviceStyles['cta-container']}>
+            <h3 className={serviceStyles['cta-title']}>¿Necesita este servicio?</h3>
+            <p className={serviceStyles['cta-description']}>
+              Contáctenos para obtener más información y una cotización personalizada adaptada a sus necesidades específicas.
+            </p>
+            <Link href="/contacto" className={serviceStyles['cta-button']}>
+              <i className="fas fa-envelope" aria-hidden="true"></i>
               Solicitar Cotización
             </Link>
           </div>
