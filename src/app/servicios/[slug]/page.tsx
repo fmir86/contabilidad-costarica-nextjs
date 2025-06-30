@@ -3,7 +3,9 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { getAllServiceSlugs, getServiceBySlug } from '../../../../lib/markdown';
+import { Service, ServiceItem, ServiceSector, ServicePlan, ServiceGuarantee } from '../../../types';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import styles from '../../../styles/service-page.module.scss';
 
 // Icon mapping for FontAwesome
 const iconMap: { [key: string]: string } = {
@@ -50,105 +52,114 @@ export async function generateMetadata({
 }
 
 export default async function ServicePage({ params }: { params: { slug: string } }) {
-  const service = await getServiceBySlug(params.slug);
+  const service: Service | null = await getServiceBySlug(params.slug);
   
   if (!service) {
     notFound();
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+    <div className={styles['page-container']}>
       {/* Hero Section */}
-      <section className="container mx-auto px-4 py-16">
-        <div className="max-w-4xl mx-auto text-center">
+      <section 
+        className={styles['hero-section']}
+        style={{
+          backgroundImage: service.imgsrc ? `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(${service.imgsrc})` : undefined,
+        }}
+      >
+        <div className={`${styles['hero-content']} ${service.imgsrc ? styles['hero-content-with-image'] : ''}`}>
           {service.badge && (
-            <div className="mb-4 inline-block bg-emerald-100 text-emerald-800 px-3 py-1 text-sm font-medium">
+            <div className={`${styles['badge']} ${
+              service.imgsrc 
+                ? styles['badge-with-image']
+                : styles['badge-default']
+            }`}>
               {service.badge}
             </div>
           )}
-          <h1 className="text-4xl md:text-6xl font-bold text-slate-900 mb-6">{service.title}</h1>
+          <h1 className={`${styles['hero-title']} ${service.imgsrc ? styles['hero-title-with-image'] : styles['hero-title-default']}`}>
+            {service.title}
+          </h1>
           {service.price && (
-            <div className="flex items-center justify-center gap-2 mb-6">
+            <div className={styles['price-container']}>
               {service.pricePrefix && (
-                <span className="text-2xl md:text-3xl font-semibold text-slate-600">{service.pricePrefix}</span>
+                <span className={`${styles['price-prefix']} ${service.imgsrc ? styles['price-prefix-with-image'] : styles['price-prefix-default']}`}>
+                  {service.pricePrefix}
+                </span>
               )}
-              <span className="text-4xl md:text-5xl font-bold text-emerald-600">{service.price}</span>
+              <span className={`${styles['price']} ${service.imgsrc ? styles['price-with-image'] : styles['price-default']}`}>
+                {service.price}
+              </span>
               {service.priceSuffix && (
-                <span className="text-2xl md:text-3xl font-semibold text-slate-600">{service.priceSuffix}</span>
+                <span className={`${styles['price-suffix']} ${service.imgsrc ? styles['price-suffix-with-image'] : styles['price-suffix-default']}`}>
+                  {service.priceSuffix}
+                </span>
               )}
             </div>
           )}
           {service.subtitle && (
-            <h2 className="text-xl md:text-2xl text-slate-600 mb-8 max-w-3xl mx-auto">
+            <h2 className={`${styles['hero-subtitle']} ${service.imgsrc ? styles['hero-subtitle-with-image'] : styles['hero-subtitle-default']}`}>
               {service.subtitle}
             </h2>
           )}
           {service.intro && (
-            <p className="text-lg text-slate-700 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className={`${styles['hero-intro']} ${service.imgsrc ? styles['hero-intro-with-image'] : styles['hero-intro-default']}`}>
               {service.intro}
             </p>
           )}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
-              href="/contacto"
-              className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3 font-medium transition-colors inline-block"
-            >
-              Solicitar Consulta
+          <div className={styles['hero-buttons']}>
+            <Link href="/contacto" className={styles['primary-button']}>
+              Solicitar Información
             </Link>
-            <button className="border border-slate-300 hover:bg-slate-50 text-slate-700 px-8 py-3 font-medium transition-colors">
-              Ver Precios Detallados
-            </button>
           </div>
         </div>
       </section>
 
       {/* Challenge Section */}
       {service.challenges && service.challenges.length > 0 && (
-        <section className="bg-slate-100 py-16">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">
-                El Desafío del Cumplimiento Fiscal en Costa Rica
+        <section className={styles['content-section-gray']}>
+            <div className={styles['content-wrapper']}>
+              <h2 className={styles['section-title']}>
+                {String(service.challengesTitle)}
               </h2>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className={styles['challenges-grid']}>
                 {service.challenges.map((challenge: string, index: number) => (
-                  <div key={index} className="bg-white p-4 shadow-sm border-l-4 border-l-red-500">
-                    <p className="text-slate-700">{challenge}</p>
+                  <div key={index} className={styles['challenge-card']}>
+                    <p className={styles['challenge-text']}>{challenge}</p>
                   </div>
                 ))}
               </div>
             </div>
-          </div>
         </section>
       )}
 
       {/* Services Section */}
       {service.services && service.services.length > 0 && (
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
-              <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">
+        <section className={styles['content-section']}>
+          <div className={styles['container']}>
+            <div className={styles['content-wrapper']}>
+              <h2 className={styles['section-title-large']}>
                 Nuestro Servicio Integral de Gestión Fiscal
               </h2>
 
-              <div className="grid lg:grid-cols-3 gap-8 mb-16">
-                {service.services.map((serviceItem: any, index: number) => (
-                  <div key={index} className="bg-white shadow-lg p-6 h-fit">
-                    <div className="flex items-center gap-2 mb-4">
-                      <i className={`${iconMap[serviceItem.icon] || 'fas fa-cog'} w-6 h-6 text-emerald-600 text-xl`}></i>
-                      <h3 className="text-xl font-bold">{serviceItem.title}</h3>
+              <div className={styles['services-grid']}>
+                {service.services.map((serviceItem: ServiceItem, index: number) => (
+                  <div key={index} className={styles['service-card']}>
+                    <div className={styles['service-header']}>
+                      <i className={`${iconMap[serviceItem.icon] || 'fas fa-cog'} ${styles['service-icon']}`}></i>
+                      <h3 className={styles['service-title']}>{serviceItem.title}</h3>
                     </div>
-                    <div className="space-y-4">
-                      {serviceItem.sections?.map((section: any, sectionIndex: number) => (
+                    <div className={styles['service-content']}>
+                      {serviceItem.sections?.map((section, sectionIndex: number) => (
                         <div key={sectionIndex}>
-                          <h4 className="font-semibold text-slate-900 mb-2">{section.name}</h4>
-                          <ul className="text-sm text-slate-600 space-y-1">
+                          <h4 className={styles['service-section-title']}>{section.name}</h4>
+                          <ul className={styles['service-list']}>
                             {section.items?.map((item: string, itemIndex: number) => (
                               <li key={itemIndex}>• {item}</li>
                             ))}
                           </ul>
                           {sectionIndex < serviceItem.sections.length - 1 && (
-                            <hr className="my-4 border-slate-200" />
+                            <hr className={styles['service-divider']} />
                           )}
                         </div>
                       ))}
@@ -159,16 +170,16 @@ export default async function ServicePage({ params }: { params: { slug: string }
 
               {/* Sector Specialization */}
               {service.sectors && service.sectors.length > 0 && (
-                <div className="mb-16">
-                  <h3 className="text-2xl font-bold text-slate-900 mb-8 text-center">Especialización por Sector</h3>
-                  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {service.sectors.map((sector: any, index: number) => (
-                      <div key={index} className="bg-white shadow-lg p-6 text-center hover:shadow-xl transition-shadow">
-                        <div className="flex justify-center mb-4">
-                          <i className={`${iconMap[sector.icon] || 'fas fa-cog'} text-emerald-600 text-4xl`}></i>
+                <div>
+                  <h3 className={styles['section-subtitle']}>Especialización por Sector</h3>
+                  <div className={styles['sectors-grid']}>
+                    {service.sectors.map((sector: ServiceSector, index: number) => (
+                      <div key={index} className={styles['sector-card']}>
+                        <div className={styles['sector-icon-container']}>
+                          <i className={`${iconMap[sector.icon] || 'fas fa-cog'} ${styles['sector-icon']}`}></i>
                         </div>
-                        <h4 className="text-lg font-bold mb-3">{sector.title}</h4>
-                        <ul className="text-sm text-slate-600 space-y-1">
+                        <h4 className={styles['sector-title']}>{sector.title}</h4>
+                        <ul className={styles['sector-list']}>
                           {sector.features?.map((feature: string, idx: number) => (
                             <li key={idx}>• {feature}</li>
                           ))}
@@ -185,38 +196,38 @@ export default async function ServicePage({ params }: { params: { slug: string }
 
       {/* Pricing Section */}
       {service.pricing && service.pricing.length > 0 && (
-        <section className="bg-slate-50 py-16">
-          <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
-              <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">Precios por Complejidad</h2>
-              <div className="grid md:grid-cols-3 gap-8">
-                {service.pricing.map((plan: any, index: number) => (
-                  <div key={index} className={`relative bg-white shadow-lg p-6 ${plan.popular ? 'border-emerald-500 border-2' : 'border border-slate-200'}`}>
+        <section className={styles['content-section-gray']}>
+          <div className={styles['container']}>
+            <div className={styles['wide-content-wrapper']}>
+              <h2 className={styles['section-title-large']}>Precios por Complejidad</h2>
+              <div className={styles['pricing-grid']}>
+                {service.pricing.map((plan: ServicePlan, index: number) => (
+                  <div key={index} className={`${styles['pricing-card']} ${plan.popular ? styles['pricing-card-popular'] : ''}`}>
                     {plan.popular && (
-                      <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-emerald-600 text-white px-3 py-1 text-sm font-medium">
+                      <div className={styles['popular-badge']}>
                         Más Popular
                       </div>
                     )}
-                    <div className="text-center mb-6">
-                      <h3 className="text-xl font-bold mb-2">{plan.name}</h3>
-                      <div className="text-3xl font-bold text-emerald-600 mb-2">
+                    <div className={styles['pricing-header']}>
+                      <h3 className={styles['pricing-name']}>{plan.name}</h3>
+                      <div className={styles['pricing-price']}>
                         {plan.price}
-                        <span className="text-lg text-slate-600">/mes</span>
+                        <span className={styles['pricing-period']}>/mes</span>
                       </div>
-                      <p className="text-slate-600">{plan.description}</p>
+                      <p className={styles['pricing-description']}>{plan.description}</p>
                     </div>
-                    <ul className="space-y-3 mb-6">
+                    <ul className={styles['pricing-features']}>
                       {plan.features?.map((feature: string, idx: number) => (
-                        <li key={idx} className="flex items-start gap-2">
-                          <i className="fas fa-check-circle text-emerald-600 mt-1 text-sm"></i>
-                          <span className="text-sm text-slate-700">{feature}</span>
+                        <li key={idx}>
+                          <i className={`fas fa-check-circle ${styles['pricing-check-icon']}`}></i>
+                          <span className={styles['pricing-feature-text']}>{feature}</span>
                         </li>
                       ))}
                     </ul>
-                    <button className={`w-full py-3 px-4 font-medium transition-colors ${
+                    <button className={`${styles['pricing-button']} ${
                       plan.popular 
-                        ? 'bg-emerald-600 hover:bg-emerald-700 text-white' 
-                        : 'border border-slate-300 hover:bg-slate-50 text-slate-700'
+                        ? styles['pricing-button-popular']
+                        : styles['pricing-button-default']
                     }`}>
                       Seleccionar Plan
                     </button>
@@ -230,18 +241,18 @@ export default async function ServicePage({ params }: { params: { slug: string }
 
       {/* Guarantees Section */}
       {service.guarantees && service.guarantees.length > 0 && (
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-3xl font-bold text-slate-900 mb-12 text-center">Garantías y Compromisos</h2>
-              <div className="grid md:grid-cols-2 gap-8">
-                {service.guarantees.map((guarantee: any, index: number) => (
-                  <div key={index} className="bg-white shadow-lg p-6 border-l-4 border-l-emerald-500">
-                    <div className="flex items-center gap-2 mb-4">
-                      <i className={`${iconMap[guarantee.icon] || 'fas fa-check'} text-emerald-600 text-xl`}></i>
-                      <h3 className="text-xl font-bold">{guarantee.title}</h3>
+        <section className={styles['content-section']}>
+          <div className={styles['container']}>
+            <div className={styles['content-wrapper']}>
+              <h2 className={styles['section-title-large']}>Garantías y Compromisos</h2>
+              <div className={styles['guarantees-grid']}>
+                {service.guarantees.map((guarantee: ServiceGuarantee, index: number) => (
+                  <div key={index} className={styles['guarantee-card']}>
+                    <div className={styles['guarantee-header']}>
+                      <i className={`${iconMap[guarantee.icon] || 'fas fa-check'} ${styles['guarantee-icon']}`}></i>
+                      <h3 className={styles['guarantee-title']}>{guarantee.title}</h3>
                     </div>
-                    <ul className="space-y-2 text-slate-700">
+                    <ul className={styles['guarantee-list']}>
                       {guarantee.items?.map((item: string, idx: number) => (
                         <li key={idx}>• {item}</li>
                       ))}
@@ -255,26 +266,26 @@ export default async function ServicePage({ params }: { params: { slug: string }
       )}
 
       {/* CTA Section */}
-      <section className="bg-emerald-600 py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center text-white">
-            <h2 className="text-3xl font-bold mb-6">
+      <section className={styles['cta-section']}>
+        <div className={styles['container']}>
+          <div className={styles['cta-content']}>
+            <h2 className={styles['cta-title']}>
               {service.ctaTitle || "¿Necesita este servicio?"}
             </h2>
-            <p className="text-xl mb-8 opacity-90">
+            <p className={styles['cta-description']}>
               {service.ctaDescription || "Contáctenos para obtener más información y una cotización personalizada adaptada a sus necesidades específicas."}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className={styles['cta-buttons']}>
               <Link 
                 href="tel:+50625703400"
-                className="bg-white text-emerald-600 hover:bg-gray-100 px-8 py-3 font-medium transition-colors inline-flex items-center justify-center gap-2"
+                className={styles['cta-primary-button']}
               >
                 <i className="fas fa-phone"></i>
                 Llamar Ahora
               </Link>
               <Link 
                 href="/contacto"
-                className="border border-white hover:bg-white hover:text-emerald-600 text-white px-8 py-3 font-medium transition-colors inline-block"
+                className={styles['cta-secondary-button']}
               >
                 Solicitar Cotización
               </Link>
@@ -284,14 +295,14 @@ export default async function ServicePage({ params }: { params: { slug: string }
       </section>
 
       {/* Quick Summary */}
-      <section className="bg-slate-100 py-12">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-3 gap-8">
+      <section className={styles['summary-section']}>
+        <div className={styles['container']}>
+          <div className={styles['wide-content-wrapper']}>
+            <div className={styles['summary-grid']}>
               {service.features && service.features.length > 0 && (
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-4">Características del Servicio</h3>
-                  <ul className="text-sm text-slate-700 space-y-2">
+                  <h3 className={styles['summary-item-title']}>Características del Servicio</h3>
+                  <ul className={styles['summary-list']}>
                     {service.features.slice(0, 4).map((feature: string, index: number) => (
                       <li key={index}>• {feature}</li>
                     ))}
@@ -300,8 +311,8 @@ export default async function ServicePage({ params }: { params: { slug: string }
               )}
               {service.included && service.included.length > 0 && (
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-4">¿Qué Incluye?</h3>
-                  <ul className="text-sm text-slate-700 space-y-2">
+                  <h3 className={styles['summary-item-title']}>¿Qué Incluye?</h3>
+                  <ul className={styles['summary-list']}>
                     {service.included.slice(0, 4).map((item: string, index: number) => (
                       <li key={index}>• {item}</li>
                     ))}
@@ -310,8 +321,8 @@ export default async function ServicePage({ params }: { params: { slug: string }
               )}
               {service.benefits && service.benefits.length > 0 && (
                 <div>
-                  <h3 className="font-bold text-slate-900 mb-4">Beneficios</h3>
-                  <ul className="text-sm text-slate-700 space-y-2">
+                  <h3 className={styles['summary-item-title']}>Beneficios</h3>
+                  <ul className={styles['summary-list']}>
                     {service.benefits.slice(0, 4).map((benefit: string, index: number) => (
                       <li key={index}>• {benefit}</li>
                     ))}

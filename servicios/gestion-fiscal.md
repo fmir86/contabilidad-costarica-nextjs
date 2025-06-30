@@ -6,11 +6,10 @@ imgsrc: "/images/servicios/gestion-fiscal.jpg"
 price: "₡95,000"
 pricePrefix: "Desde"
 priceSuffix: "/mes"
-duration: "Servicio integral anual"
 category: "Cumplimiento Fiscal"
-badge: "Servicio integral anual"
 intro: "La gestión fiscal adecuada es crítica para cualquier empresa en Costa Rica. El incumplimiento puede resultar en multas severas, cierres temporales e incluso problemas legales. Nuestro servicio integral garantiza que su empresa cumpla con todas sus obligaciones tributarias mientras optimiza legalmente su carga fiscal."
 
+challengesTitle: "El Desafío del Cumplimiento Fiscal en Costa Rica"
 challenges:
   - "Múltiples obligaciones con diferentes periodicidades"
   - "Cambios normativos frecuentes que requieren adaptación"
@@ -82,35 +81,6 @@ sectors:
       - "Incentivos para software"
       - "Propiedad intelectual"
       - "Exportación digital"
-
-pricing:
-  - name: "Paquete Básico"
-    price: "₡95,000"
-    description: "Para empresas con necesidades fiscales estándar"
-    popular: false
-    features:
-      - "Gestión completa de obligaciones mensuales"
-      - "Declaración anual de renta"
-      - "Asesoría telefónica incluida"
-      - "Calendario fiscal personalizado"
-  - name: "Paquete Empresarial"
-    price: "₡145,000"
-    description: "Para empresas con mayor complejidad fiscal"
-    popular: true
-    features:
-      - "Todo lo del paquete básico"
-      - "Optimización fiscal avanzada"
-      - "Representación en fiscalizaciones"
-      - "Asesoría estratégica trimestral"
-  - name: "Paquete Premium"
-    price: "₡195,000"
-    description: "Para empresas con máxima complejidad"
-    popular: false
-    features:
-      - "Todo lo del paquete empresarial"
-      - "Planificación fiscal integral"
-      - "Asesoría presencial mensual"
-      - "Gestión de beneficios especiales"
 
 guarantees:
   - title: "Cumplimiento Garantizado"
