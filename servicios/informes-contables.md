@@ -1,16 +1,16 @@
 ---
 title: "Informes Contables"
+slug: "informes-contables"
 description: "Elaboramos informes detallados de la situación financiera de su organización, facilitando la toma de decisiones estratégicas, el cumplimiento normativo y la gestión administrativa."
 subtitle: "Conozca la Situación Real de su Empresa con Informes Profesionales"
 imgsrc: "/images/servicios/estados-financieros.jpg"
-price: "₡75,000"
-pricePrefix: "Desde"
-priceSuffix: "/mes"
-duration: "Informes mensuales"
-category: "Reportes Financieros"
-badge: "Análisis financiero integral"
+#price: "₡75,000"
+#pricePrefix: "Desde"
+#priceSuffix: "/mes"
+
 intro: "Los informes contables son la brújula financiera de su empresa. Sin información clara y oportuna sobre su situación económica, tomar decisiones estratégicas se convierte en navegar a ciegas. Nuestros informes especializados le proporcionan la visibilidad necesaria para dirigir su negocio hacia el éxito."
 
+challengesTitle: "Informes que le permiten lidiar desafíos como:"
 challenges:
   - "Falta de visibilidad sobre la situación financiera real"
   - "Dificultad para tomar decisiones informadas"
@@ -18,36 +18,87 @@ challenges:
   - "Desconocimiento de rentabilidad por líneas de negocio"
   - "Falta de información para planificación estratégica"
 
-pricing:
-  - name: "Paquete Básico"
-    price: "₡75,000"
-    description: "Estados financieros básicos mensuales"
-    popular: false
+servicesTitle: "Servicio Integral de Informes Contables"
+services:
+  - title: "Informes Financieros Mensuales"
+    icon: "BarChart"
+    sections:
+      - name: "Informes Financieros Básicos"
+        items:
+          - "Balance General"
+          - "Estado de Resultados"
+      - name: "Análisis Financiero"
+        items:
+          - "Indicadores Clave de Rendimiento (KPI)"
+          - "Flujo de Efectivo"
+          - "Proyecciones Financieras"
+      - name: "Informes Comparativos"
+        items:
+          - "Comparación por períodos"
+          - "Análisis de Variaciones"
+      - name: "Análisis de Rentabilidad"
+        items:
+          - "Rentabilidad por Línea de Negocio"
+  - title: "Informes Especializados"
+    icon: "PieChart"
+    sections:
+      - name: "Informes Personalizados"
+        items:
+          - "Análisis de Costos"
+          - "Evaluación de Proyectos"
+          - "Informes para Inversionistas"
+      - name: "Reportes Ejecutivos"
+        items:
+          - "Resumen Ejecutivo Mensual"
+          - "Presentaciones para Junta Directiva"
+  - title: "Reuniones de Revisión"
+    icon: "Users"
+    sections:
+      - name: "Reuniones Mensuales"
+        items:
+          - "Revisión de Informes"
+          - "Análisis de Desempeño"
+
+sectors:
+  - title: "Comercio y Retail"
+    icon: "Users"
     features:
-      - "Balance General mensual certificado"
-      - "Estado de Resultados detallado"
-      - "Flujo de efectivo operativo"
-      - "1 reunión de revisión mensual"
-  - name: "Paquete Empresarial"
-    price: "₡120,000"
-    description: "Análisis financiero completo"
-    popular: true
+      - "Manejo de inventarios fiscales"
+      - "Importaciones y aduanas"
+      - "Múltiples puntos de venta"
+  - title: "Servicios Profesionales"
+    icon: "Award"
     features:
-      - "Todo lo del paquete básico"
-      - "Análisis por centros de costo"
-      - "Reportes comparativos"
-      - "2 reuniones mensuales"
-      - "Análisis de presupuesto vs real"
-  - name: "Paquete Premium"
-    price: "₡180,000"
-    description: "Asesoría financiera estratégica"
-    popular: false
+      - "Régimen de honorarios"
+      - "Gastos de representación"
+      - "Ingresos variables"
+  - title: "Construcción"
+    icon: "TrendingUp"
     features:
-      - "Todo lo del paquete empresarial"
-      - "Análisis predictivo y proyecciones"
-      - "Reportes personalizados"
-      - "Asesoría financiera ilimitada"
-      - "Reuniones semanales si se requiere"
+      - "Proyectos a largo plazo"
+      - "Subcontratistas"
+      - "Activos inmobiliarios"
+  - title: "Tecnología"
+    icon: "Shield"
+    features:
+      - "Incentivos para software"
+      - "Propiedad intelectual"
+      - "Exportación digital"
+        
+guarantees:
+  - title: "Cumplimiento Garantizado"
+    icon: "CheckCircle"
+    items:
+      - "Confección de informes según normativas contables"
+      - "Respaldo total en caso de observaciones"
+      - "Corrección gratuita de errores propios"
+  - title: "Confidencialidad Total"
+    icon: "Shield"
+    items:
+      - "Protección absoluta de información empresarial"
+      - "Acceso restringido a datos sensibles"
+      - "Cumplimiento de normativas de privacidad"
+
 
 features:
   - "Estados financieros básicos (Balance General, Estado de Resultados)"
@@ -74,7 +125,3 @@ benefits:
 ctaTitle: "Conozca realmente cómo está su empresa"
 ctaDescription: "Tome decisiones basadas en información real y confiable. Solicite nuestros informes contables especializados y transforme la gestión de su negocio."
 ---
-
-## Conozca la Situación Real de su Empresa con Informes Profesionales
-
-Los **informes contables** son la brújula financiera de su empresa. Sin información clara y oportuna sobre su situación económica, tomar decisiones estratégicas se convierte en navegar a ciegas. Nuestros informes especializados le proporcionan la visibilidad necesaria para dirigir su negocio hacia el éxito.

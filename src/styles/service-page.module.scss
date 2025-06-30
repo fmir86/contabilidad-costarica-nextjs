@@ -224,7 +224,7 @@
 }
 
 .content-section-gray {
-  background-color: #f1f5f9;
+  @apply bg-light-gray;
   padding: 4rem 0;
 }
 
@@ -583,6 +583,7 @@
 }
 
 .cta-title {
+  @apply text-center after:content-none w-full;
   font-size: 1.875rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
@@ -606,36 +607,11 @@
 }
 
 .cta-primary-button {
-  background-color: white;
-  color: #059669;
+  @apply inline-flex items-center justify-center bg-yellow text-[#1f2937] font-[500] gap-2;
   padding: 0.75rem 2rem;
-  font-weight: 500;
   transition: background-color 0.3s ease;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
   text-decoration: none;
   
-  &:hover {
-    background-color: #f3f4f6;
-  }
-}
-
-.cta-secondary-button {
-  border: 1px solid white;
-  color: white;
-  padding: 0.75rem 2rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  display: inline-block;
-  text-decoration: none;
-  background: transparent;
-  
-  &:hover {
-    background-color: white;
-    color: #059669;
-  }
 }
 
 /* Summary Section */
@@ -656,5 +632,17 @@
   
   li {
     margin-bottom: 0.5rem;
+  }
+}
+
+.guarantees-section{
+  @apply bg-light-gray;
+}
+
+.bulleted{
+  @apply pl-4;
+  
+  li{
+    @apply list-disc;
   }
 }

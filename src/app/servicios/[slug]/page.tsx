@@ -18,6 +18,7 @@ const iconMap: { [key: string]: string } = {
   Shield: 'fas fa-shield-alt',
   CheckCircle: 'fas fa-check-circle',
   Phone: 'fas fa-phone',
+  FileCode: 'fas fa-file-code',
 };
 
 // Generate all static paths at build time
@@ -135,11 +136,11 @@ export default async function ServicePage({ params }: { params: { slug: string }
 
       {/* Services Section */}
       {service.services && service.services.length > 0 && (
-        <section className={styles['content-section']}>
+        <section className={`${styles['content-section']}`}>
           <div className={styles['container']}>
             <div className={styles['content-wrapper']}>
               <h2 className={styles['section-title-large']}>
-                Nuestro Servicio Integral de Gestión Fiscal
+                {String(service.servicesTitle || "Servicios Incluidos")}
               </h2>
 
               <div className={styles['services-grid']}>
@@ -153,9 +154,9 @@ export default async function ServicePage({ params }: { params: { slug: string }
                       {serviceItem.sections?.map((section, sectionIndex: number) => (
                         <div key={sectionIndex}>
                           <h4 className={styles['service-section-title']}>{section.name}</h4>
-                          <ul className={styles['service-list']}>
+                          <ul className={`${styles['service-list']} ${styles['bulleted']}`}>
                             {section.items?.map((item: string, itemIndex: number) => (
-                              <li key={itemIndex}>• {item}</li>
+                              <li key={itemIndex}>{item}</li>
                             ))}
                           </ul>
                           {sectionIndex < serviceItem.sections.length - 1 && (
@@ -181,7 +182,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
                         <h4 className={styles['sector-title']}>{sector.title}</h4>
                         <ul className={styles['sector-list']}>
                           {sector.features?.map((feature: string, idx: number) => (
-                            <li key={idx}>• {feature}</li>
+                            <li key={idx}>{feature}</li>
                           ))}
                         </ul>
                       </div>
@@ -241,7 +242,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
 
       {/* Guarantees Section */}
       {service.guarantees && service.guarantees.length > 0 && (
-        <section className={styles['content-section']}>
+        <section className={`${styles['content-section']} ${styles['guarantees-section']}`}>
           <div className={styles['container']}>
             <div className={styles['content-wrapper']}>
               <h2 className={styles['section-title-large']}>Garantías y Compromisos</h2>
@@ -252,9 +253,9 @@ export default async function ServicePage({ params }: { params: { slug: string }
                       <i className={`${iconMap[guarantee.icon] || 'fas fa-check'} ${styles['guarantee-icon']}`}></i>
                       <h3 className={styles['guarantee-title']}>{guarantee.title}</h3>
                     </div>
-                    <ul className={styles['guarantee-list']}>
+                    <ul className={`${styles['guarantee-list']} ${styles['bulleted']}`}>
                       {guarantee.items?.map((item: string, idx: number) => (
-                        <li key={idx}>• {item}</li>
+                        <li key={idx}>{item}</li>
                       ))}
                     </ul>
                   </div>
@@ -277,7 +278,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
             </p>
             <div className={styles['cta-buttons']}>
               <Link 
-                href="tel:+50625703400"
+                href="tel:+50685949097"
                 className={styles['cta-primary-button']}
               >
                 <i className="fas fa-phone"></i>
@@ -285,7 +286,7 @@ export default async function ServicePage({ params }: { params: { slug: string }
               </Link>
               <Link 
                 href="/contacto"
-                className={styles['cta-secondary-button']}
+                className={styles['cta-primary-button']}
               >
                 Solicitar Cotización
               </Link>
@@ -302,9 +303,9 @@ export default async function ServicePage({ params }: { params: { slug: string }
               {service.features && service.features.length > 0 && (
                 <div>
                   <h3 className={styles['summary-item-title']}>Características del Servicio</h3>
-                  <ul className={styles['summary-list']}>
+                  <ul className={`${styles['summary-list']} ${styles['bulleted']}`}>
                     {service.features.slice(0, 4).map((feature: string, index: number) => (
-                      <li key={index}>• {feature}</li>
+                      <li key={index}>{feature}</li>
                     ))}
                   </ul>
                 </div>
@@ -312,9 +313,9 @@ export default async function ServicePage({ params }: { params: { slug: string }
               {service.included && service.included.length > 0 && (
                 <div>
                   <h3 className={styles['summary-item-title']}>¿Qué Incluye?</h3>
-                  <ul className={styles['summary-list']}>
+                  <ul className={`${styles['summary-list']} ${styles['bulleted']}`}>
                     {service.included.slice(0, 4).map((item: string, index: number) => (
-                      <li key={index}>• {item}</li>
+                      <li key={index}>{item}</li>
                     ))}
                   </ul>
                 </div>
@@ -322,9 +323,9 @@ export default async function ServicePage({ params }: { params: { slug: string }
               {service.benefits && service.benefits.length > 0 && (
                 <div>
                   <h3 className={styles['summary-item-title']}>Beneficios</h3>
-                  <ul className={styles['summary-list']}>
+                  <ul className={`${styles['summary-list']} ${styles['bulleted']}`}>
                     {service.benefits.slice(0, 4).map((benefit: string, index: number) => (
-                      <li key={index}>• {benefit}</li>
+                      <li key={index}>{benefit}</li>
                     ))}
                   </ul>
                 </div>

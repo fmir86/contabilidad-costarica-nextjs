@@ -1,12 +1,13 @@
 ---
 title: "Gestión Fiscal"
+slug: "gestion-fiscal"
 description: "Gestionamos adecuadamente sus deberes fiscales, cumpliendo con los plazos y periodos estipulados para que su organización se pueda enfocar en producir y generar valor."
 subtitle: "Cumplimiento Fiscal Total sin Preocupaciones"
 imgsrc: "/images/servicios/gestion-fiscal.jpg"
-price: "₡95,000"
-pricePrefix: "Desde"
-priceSuffix: "/mes"
-category: "Cumplimiento Fiscal"
+#price: "₡95,000"
+#pricePrefix: "Desde"
+#priceSuffix: "/mes"
+
 intro: "La gestión fiscal adecuada es crítica para cualquier empresa en Costa Rica. El incumplimiento puede resultar en multas severas, cierres temporales e incluso problemas legales. Nuestro servicio integral garantiza que su empresa cumpla con todas sus obligaciones tributarias mientras optimiza legalmente su carga fiscal."
 
 challengesTitle: "El Desafío del Cumplimiento Fiscal en Costa Rica"
@@ -17,6 +18,7 @@ challenges:
   - "Complejidad creciente en facturación electrónica"
   - "Fiscalizaciones más rigurosas por parte de Hacienda"
 
+servicesTitle: "Servicio Integral de Gestión Fiscal"
 services:
   - title: "Obligaciones Mensuales"
     icon: "Calendar"
@@ -123,7 +125,3 @@ benefits:
 ctaTitle: "No arriesgue el futuro de su empresa por problemas fiscales"
 ctaDescription: "Confíe en nuestros especialistas y enfóquese en hacer crecer su negocio mientras nosotros nos encargamos de mantenerlo en regla con Hacienda."
 ---
-
-## Cumplimiento Fiscal Total sin Preocupaciones
-
-La **gestión fiscal** adecuada es crítica para cualquier empresa en Costa Rica. El incumplimiento puede resultar en multas severas, cierres temporales e incluso problemas legales. Nuestro servicio integral garantiza que su empresa cumpla con todas sus obligaciones tributarias mientras optimiza legalmente su carga fiscal.

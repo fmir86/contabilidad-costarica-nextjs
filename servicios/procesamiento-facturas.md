@@ -1,16 +1,16 @@
 ---
 title: "Procesamiento de Facturas"
+slug: "procesamiento-facturas"
 description: "Procesamos, ordenamos y archivamos sus facturas según la normativa costarricense, realizando sus declaraciones en la plataforma ATV de Hacienda."
 subtitle: "Mantenga sus Facturas en Orden y Cumpla con Hacienda"
 imgsrc: "/images/servicios/procesamiento-facturas.jpg"
-price: "₡45,000"
-pricePrefix: "Desde"
-priceSuffix: "/mes"
-duration: "Servicio mensual"
-category: "Contabilidad"
-badge: "Servicio mensual recurrente"
+#price: "₡45,000"
+#pricePrefix: "Desde"
+#priceSuffix: "/mes"
+
 intro: "El procesamiento adecuado de facturas es fundamental para cualquier empresa en Costa Rica. Nuestro servicio especializado garantiza que todas sus facturas cumplan con la normativa fiscal vigente y estén correctamente registradas para sus declaraciones ante el Ministerio de Hacienda."
 
+challengesTitle: "Desafíos al procesar facturas"
 challenges:
   - "Multas y sanciones por incumplimiento fiscal"
   - "Rechazo de gastos deducibles en declaraciones de renta"
@@ -18,6 +18,7 @@ challenges:
   - "Pérdida de tiempo valioso en tareas administrativas"
   - "Errores en cálculos de impuestos y deducciones"
 
+servicesTitle: "Solución Integral al Procesamiento de Facturas"
 services:
   - title: "Recepción y Clasificación"
     icon: "FileText"
@@ -25,7 +26,7 @@ services:
       - name: "Gestión Digital de Documentos"
         items:
           - "Recepción digital vía email o WhatsApp"
-          - "Clasificación automática por tipo y período"
+          - "Clasificación por tipo y período"
           - "Verificación de requisitos fiscales"
           - "Identificación de facturas rechazables"
       - name: "Control de Calidad"
@@ -50,7 +51,7 @@ services:
           - "Cálculo preciso de impuestos"
           - "Presentación oportuna en ATV"
   - title: "Facturación Electrónica"
-    icon: "Shield"
+    icon: "FileCode"
     sections:
       - name: "Validación 4.4"
         items:
@@ -88,35 +89,6 @@ sectors:
       - "Costos de producción"
       - "Control de calidad"
       - "Trazabilidad completa"
-
-pricing:
-  - name: "Paquete Básico"
-    price: "₡45,000"
-    description: "Hasta 50 facturas mensuales"
-    popular: false
-    features:
-      - "Procesamiento ilimitado de facturas mensuales"
-      - "Declaración mensual D-104 (IVA)"
-      - "Archivo digital organizado por período"
-      - "Reportes de facturas procesadas"
-  - name: "Paquete Empresarial"
-    price: "₡65,000"
-    description: "De 51 a 100 facturas mensuales"
-    popular: true
-    features:
-      - "Todo lo del paquete básico"
-      - "Análisis de gastos por categoría"
-      - "Control de presupuestos"
-      - "Soporte técnico prioritario"
-  - name: "Paquete Premium"
-    price: "₡85,000"
-    description: "De 101 a 200 facturas mensuales"
-    popular: false
-    features:
-      - "Todo lo del paquete empresarial"
-      - "Reportes gerenciales avanzados"
-      - "Asesoría en optimización"
-      - "Capacitación del personal"
 
 guarantees:
   - title: "Precisión Garantizada"
@@ -158,7 +130,3 @@ benefits:
 ctaTitle: "No deje el procesamiento de sus facturas al azar"
 ctaDescription: "Confíe en nuestros especialistas y asegure el cumplimiento fiscal de su empresa mientras se enfoca en hacer crecer su negocio."
 ---
-
-## Mantenga sus Facturas en Orden y Cumpla con Hacienda
-
-El **procesamiento adecuado de facturas** es fundamental para cualquier empresa en Costa Rica. Nuestro servicio especializado garantiza que todas sus facturas cumplan con la normativa fiscal vigente y estén correctamente registradas para sus declaraciones ante el Ministerio de Hacienda.
