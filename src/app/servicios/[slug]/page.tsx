@@ -149,21 +149,23 @@ export default async function ServicePage({ params }: { params: { slug: string }
             </ul>
           </div>
         )}
+      </article>
 
-        {/* Call to Action */}
-        <div className={serviceStyles['service-cta']}>
-          <div className={serviceStyles['cta-container']}>
-            <h3 className={serviceStyles['cta-title']}>¿Necesita este servicio?</h3>
+      {/* Call to Action - styled like QuickContact */}
+      <section className={serviceStyles['service-cta']}>
+        <div className={serviceStyles['cta-container']}>
+          <div className={serviceStyles['cta-content']}>
+            <h2 className={serviceStyles['cta-title']}>¿NECESITA ESTE SERVICIO?</h2>
             <p className={serviceStyles['cta-description']}>
               Contáctenos para obtener más información y una cotización personalizada adaptada a sus necesidades específicas.
             </p>
             <Link href="/contacto" className={serviceStyles['cta-button']}>
               <i className="fas fa-envelope" aria-hidden="true"></i>
-              Solicitar Cotización
+              SOLICITAR COTIZACIÓN
             </Link>
           </div>
         </div>
-      </article>
+      </section>
     </div>
   );
 }

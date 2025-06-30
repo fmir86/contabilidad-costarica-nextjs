@@ -1,27 +1,32 @@
 /* Service Detail Page Styles */
 
 .service-cta {
-  @apply mt-8;
+  @apply w-full pt-16 pb-8 bg-green-600 text-white;
 
   .cta-container {
-    @apply bg-gray-50 p-8 text-center;
+    @apply mx-auto px-4 sm:px-6 max-w-7xl;
+  }
+
+  .cta-content {
+    @apply text-center;
   }
 
   .cta-title {
-    @apply text-2xl font-bold text-gray-700 mb-4;
+    @apply text-2xl md:text-3xl font-semibold mb-4;
+
+    &:after {
+      @apply content-none;
+    }
   }
 
   .cta-description {
-    @apply text-gray-600 mb-6 max-w-lg mx-auto;
+    @apply text-base md:text-base leading-relaxed mb-8;
   }
 
   .cta-button {
-    @apply bg-dark-green text-white px-8 py-4 uppercase font-medium tracking-wider;
-    @apply hover:bg-active-green transition-colors duration-200;
+    @apply py-3 px-6 bg-yellow hover:bg-active-yellow transition-colors text-sm;
+    @apply text-gray-800 font-bold uppercase;
     @apply inline-flex items-center gap-3;
-    
-    .button-icon {
-      @apply text-lg;
-    }
+    @apply disabled:opacity-70 disabled:cursor-not-allowed;
   }
 }
