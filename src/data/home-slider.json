@@ -6,7 +6,7 @@
         "description": "Nos amoldamos a sus necesidades y presupuesto.",
         "cta": {
           "label": "Lista de Servicios",
-          "url": "/about",
+          "url": "/servicios",
           "target": "_self"
         }
       },
@@ -15,8 +15,8 @@
         "title": "Soluciones para la Micro, Pequeña y Mediana Empresa",
         "description": "Soluciones de calidad, confiables y asequibles.",
         "cta": {
-          "label": "Contact Us",
-          "url": "/contact",
+          "label": "Contáctenos",
+          "url": "/contacto",
           "target": "_self"
         }
       }
