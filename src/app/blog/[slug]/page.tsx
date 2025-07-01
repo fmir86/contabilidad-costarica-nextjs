@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { getAllPostSlugs, getPostBySlug } from '../../../../lib/markdown';
-import styles from '@/styles/blog-page.module.scss';
+import styles from '../../../styles/blog-page.module.scss';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 // Helper function to parse reference string and extract URL
@@ -53,24 +53,6 @@ export default async function BlogPost({ params }: { params: { slug: string } })
   if (!post) {
     notFound();
   }
-
-  // Generate references HTML if they exist
-  const referencesHtml = post.references && post.references.length > 0 
-    ? `
-      <h2>Referencias</h2>
-      <small>
-        <ol>
-          ${post.references.map((ref: string) => {
-            const { text, url } = parseReference(ref);
-            return `<li>${url ? `${text} <a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>` : text}</li>`;
-          }).join('')}
-        </ol>
-      </small>
-    `
-    : '';
-
-  // Combine post content with references
-  const fullContent = post.content + referencesHtml;
 
   return (
     <div className={styles['blog-post-container']}>
@@ -125,12 +107,44 @@ export default async function BlogPost({ params }: { params: { slug: string } })
           </div>
         )}
 
+        {/* Main post content */}
         <div 
           className={styles['post-content']}
-          dangerouslySetInnerHTML={{ __html: fullContent }}
+          dangerouslySetInnerHTML={{ __html: post.content }}
         />
 
-        {/* References are now included in the content above */}
+        {/* References section as proper JSX */}
+        {post.references && post.references.length > 0 && (
+          <div className={styles['references-section']}>
+            <h2>Referencias</h2>
+            <small>
+              <ol>
+                {post.references.map((ref: string, index: number) => {
+                  const { text, url } = parseReference(ref);
+                  return (
+                    <li key={index}>
+                      {url ? (
+                        <>
+                          {text}{' '}
+                          <a 
+                            href={url} 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className={styles['reference-link']}
+                          >
+                            {url}
+                          </a>
+                        </>
+                      ) : (
+                        text
+                      )}
+                    </li>
+                  );
+                })}
+              </ol>
+            </small>
+          </div>
+        )}
       </article>
     </div>
   );

@@ -33,6 +33,10 @@
   text-align: center;
   position: relative;
   z-index: 10;
+
+  h2{
+    @apply text-center;
+  }
 }
 
 .hero-content-with-image {
@@ -150,7 +154,7 @@
 }
 
 .hero-intro {
-  font-size: 1.125rem;
+  @apply text-base md:text-lg;
   margin-bottom: 2rem;
   max-width: 48rem;
   margin-left: auto;
@@ -245,19 +249,19 @@
 }
 
 .section-title {
-  font-size: 1.875rem;
+  @apply text-2xl md:text-3xl;
   font-weight: 700;
   color: #0f172a;
   margin-bottom: 2rem;
-  text-align: center;
+  @apply text-left md:text-center;
 }
 
 .section-title-large {
-  font-size: 1.875rem;
+  @apply text-2xl md:text-3xl;
   font-weight: 700;
   color: #0f172a;
   margin-bottom: 3rem;
-  text-align: center;
+  @apply text-left md:text-center;
 }
 
 .section-subtitle {

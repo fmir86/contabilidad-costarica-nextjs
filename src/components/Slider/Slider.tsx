@@ -126,10 +126,12 @@ const Slider = (sliderProps: SliderProps) => {
     const tl = gsap.timeline({
       onComplete: () => {
         // Hide the old slide only after transition is complete
-        gsap.set(qRef.current(`[data-idx="${oldSlideIdx}"]`), { display: 'none' });
-        // Reset z-index for all slides and ensure new slide is on top
-        gsap.set(qRef.current('.slide-item'), { zIndex: 1 });
-        gsap.set(qRef.current(`[data-idx="${newSlideIdx}"]`), { zIndex: 10 });
+        if (qRef.current) {
+          gsap.set(qRef.current(`[data-idx="${oldSlideIdx}"]`), { display: 'none' });
+          // Reset z-index for all slides and ensure new slide is on top
+          gsap.set(qRef.current('.slide-item'), { zIndex: 1 });
+          gsap.set(qRef.current(`[data-idx="${newSlideIdx}"]`), { zIndex: 10 });
+        }
         isAnimatingRef.current = false;
         // Remove this timeline from active timelines
         activeTimelines.current = activeTimelines.current.filter(timeline => timeline !== tl);

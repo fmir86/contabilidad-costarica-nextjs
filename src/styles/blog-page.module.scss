@@ -119,7 +119,7 @@
       @apply list-decimal pl-6 mb-4;
     
       a{
-        @apply text-dark-green underline;
+        @apply text-dark-green underline break-words;
       }
     }
   }
