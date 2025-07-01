@@ -7,9 +7,32 @@ import { getAllPosts } from '../../../lib/markdown';
 import styles from '@/styles/blog.module.scss';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+// Define once, use everywhere
+const pageTitle = 'Contabilidad Costa Rica | Blog';
+const pageDescription = 'Nuestros artículos más recientes sobre contabilidad y finanzas en Costa Rica. Mantente al día con las últimas actualizaciones y consejos.';
+const ogImage = '/images/og-image.jpg';
+
 export const metadata: Metadata = {
-  title: 'Contabilidad Costa Rica | Blog',
-  description: 'Nuestros artículos más recientes sobre contabilidad y finanzas en Costa Rica. Mantente al día con las últimas actualizaciones y consejos.',
+  title: pageTitle,
+  description: pageDescription,
+  openGraph: {
+    title: pageTitle,
+    description: pageDescription,
+    images: [{
+      url: ogImage,
+      width: 1200,
+      height: 630,
+      alt: 'Contabilidad Costa Rica - Blog'
+    }],
+    type: 'website',
+    url: 'https://contabilidadcostarica.net/blog'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: pageTitle,
+    description: pageDescription,
+    images: [ogImage]
+  }
 };
 
 export default function BlogPage({

@@ -3,9 +3,32 @@ import { Metadata } from 'next';
 import styles from '@/styles/contacto.module.scss';
 import { ContactForm } from '@/components/ContactForm/ContactForm';
 
+// Define once, use everywhere
+const pageTitle = 'Contabilidad Costa Rica | Contáctenos';
+const pageDescription = 'Contáctenos para obtener más información sobre nuestros servicios contables a la medida.';
+const ogImage = '/images/og-image.jpg';
+
 export const metadata: Metadata = {
-  title: 'Contabilidad Costa Rica | Contáctenos',
-  description: 'Contáctenos para obtener más información sobre nuestros servicios contables a la medida.',
+  title: pageTitle,
+  description: pageDescription,
+  openGraph: {
+    title: pageTitle,
+    description: pageDescription,
+    images: [{
+      url: ogImage,
+      width: 1200,
+      height: 630,
+      alt: 'Contabilidad Costa Rica - Contacto'
+    }],
+    type: 'website',
+    url: 'https://contabilidadcostarica.net/contacto'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: pageTitle,
+    description: pageDescription,
+    images: [ogImage]
+  }
 };
 
 export default function ContactPage() {

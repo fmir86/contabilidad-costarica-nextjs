@@ -2,9 +2,32 @@ import { Metadata } from 'next';
 import Head from "next/head";
 import styles from '@/styles/sobre-nosotros.module.scss';
 
+// Define once, use everywhere
+const pageTitle = 'Contabilidad Costa Rica | Sobre Nosotros';
+const pageDescription = 'Descubre cómo en Contabilidad Costa Rica unimos responsabilidad, profesionalismo y confianza para ofrecerle servicios contables integrales.';
+const ogImage = '/images/og-image.jpg';
+
 export const metadata: Metadata = {
-  title: 'Contabilidad Costa Rica | Sobre Nosotros',
-  description: 'Descubre cómo en Contabilidad Costa Rica unimos responsabilidad, profesionalismo y confianza para ofrecerle servicios contables integrales.',
+  title: pageTitle,
+  description: pageDescription,
+  openGraph: {
+    title: pageTitle,
+    description: pageDescription,
+    images: [{
+      url: ogImage,
+      width: 1200,
+      height: 630,
+      alt: 'Contabilidad Costa Rica - Sobre Nosotros'
+    }],
+    type: 'website',
+    url: 'https://contabilidadcostarica.net/sobre-nosotros'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: pageTitle,
+    description: pageDescription,
+    images: [ogImage]
+  }
 };
 
 

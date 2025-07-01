@@ -5,9 +5,32 @@ import { getAllServices } from '../../../lib/markdown';
 import styles from '@/styles/servicios.module.scss';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+// Define once, use everywhere
+const pageTitle = 'Contabilidad Costa Rica | Servicios';
+const pageDescription = 'Ofrecemos una gran gama de servicios contables y financieros a la medida. Para la pequeña empresa y el profesional independiente.';
+const ogImage = '/images/og-image.jpg';
+
 export const metadata: Metadata = {
-  title: 'Contabilidad Costa Rica | Servicios',
-  description: 'Ofrecemos una gran gama de servicios contables y financieros a la medida. Para la pequeña empresa y el profesional independiente.',
+  title: pageTitle,
+  description: pageDescription,
+  openGraph: {
+    title: pageTitle,
+    description: pageDescription,
+    images: [{
+      url: ogImage,
+      width: 1200,
+      height: 630,
+      alt: 'Contabilidad Costa Rica - Servicios'
+    }],
+    type: 'website',
+    url: 'https://contabilidadcostarica.net/servicios'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: pageTitle,
+    description: pageDescription,
+    images: [ogImage]
+  }
 };
 
 const Servicios: React.FC = () => {

@@ -10,9 +10,32 @@ import Software from "@/components/Software/Software";
 
 import type { Metadata } from 'next'
 
+// Define once, use everywhere
+const pageTitle = 'Contabilidad Costa Rica | Servicios contables accesibles y confiables';
+const pageDescription = 'Ofrecemos servicios contables para la micro, pequeña y mediana empresa en Costa Rica. Gestión Tributaria, estados financieros, asesorías.';
+const ogImage = '/images/og-image.jpg';
+
 export const metadata: Metadata = {
-  title: 'Contabilidad Costa Rica | Servicios contables accesibles y confiables',
-  description: 'Ofrecemos servicios contables para la micro, pequeña y mediana empresa en Costa Rica. Gestión Tributaria, estados financieros, asesorías.'
+  title: pageTitle,
+  description: pageDescription,
+  openGraph: {
+    title: pageTitle,
+    description: pageDescription,
+    images: [{
+      url: ogImage,
+      width: 1200,
+      height: 630,
+      alt: 'Contabilidad Costa Rica - Servicios contables profesionales'
+    }],
+    type: 'website',
+    url: 'https://contabilidadcostarica.net'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: pageTitle,
+    description: pageDescription,
+    images: [ogImage]
+  }
 }
 
 
