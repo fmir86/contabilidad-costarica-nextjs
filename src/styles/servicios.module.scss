@@ -17,6 +17,7 @@
         .card{
 
             @apply shadow-lg rounded-sm overflow-hidden;
+            @apply flex flex-col h-full;
 
             .image {
                 @apply aspect-[4/3] overflow-hidden;
@@ -29,7 +30,31 @@
             }
     
             .content{
-                @apply p-6;
+                @apply p-6 flex flex-col flex-1;
+
+                .title {
+                    @apply text-xl font-bold mb-3;
+                    
+                    a {
+                        @apply hover:text-dark-green transition-colors;
+                    }
+                }
+
+                .description {
+                    @apply text-dark-gray mb-4 flex-1;
+                }
+
+                .price {
+                    @apply mt-2 mb-4 font-bold text-dark-green text-lg;
+                }
+
+                .read-more {
+                    @apply mt-auto;
+                    
+                    a {
+                        @apply inline-flex items-center text-dark-green font-medium hover:text-active-green gap-2;
+                    }
+                }
             }
 
             &:hover{

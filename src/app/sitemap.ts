@@ -1,10 +1,12 @@
 // src/app/sitemap.ts
-import { getAllPostSlugs } from '../../lib/markdown';
+import { getAllPostSlugs, getAllServiceSlugs } from '../../lib/markdown';
 import { MetadataRoute } from 'next';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Get all blog posts
   const posts = getAllPostSlugs();
+  // Get all service pages
+  const services = getAllServiceSlugs();
   
   // Your site's base URL
   const baseUrl = 'https://www.contabilidadcostarica.net';
@@ -12,6 +14,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Generate sitemap entries for blog posts
   const blogUrls = posts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const, // Use 'as const' to specify exact type
+    priority: 0.8,
+  }));
+
+  // generate sitemap entries for service pages
+  const servicesUrls = services.map((service) => ({
+    url: `${baseUrl}/servicios/${service.slug}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const, // Use 'as const' to specify exact type
     priority: 0.8,
@@ -54,5 +64,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
   
   // Combine all URLs
-  return [...staticPages, ...blogUrls];
+  return [...staticPages, ...blogUrls, ...servicesUrls];
 }
