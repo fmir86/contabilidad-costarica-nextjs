@@ -36,59 +36,171 @@ const Slider = (sliderProps: SliderProps) => {
   const currentSlideRef = useRef(0);
   const totalSlides = sliderProps.slides.length;
   const userInteractedRef = useRef(false);
+  const isAnimatingRef = useRef(false);
 
-  // Almacenamos el selector de GSAP en un ref para conservarlo entre renders
+  // Store GSAP selector and active timelines for proper cleanup
   const qRef = useRef<gsap.utils.SelectorFunc | null>(null);
+  const activeTimelines = useRef<gsap.core.Timeline[]>([]);
 
-  // Inicializamos el selector y animamos el primer slide
+  // Function to kill all active animations
+  const killAllAnimations = useCallback(() => {
+    // Kill all active timelines
+    activeTimelines.current.forEach(tl => {
+      if (tl) {
+        tl.kill();
+      }
+    });
+    activeTimelines.current = [];
+    
+    // Kill any remaining tweens on slider elements
+    if (qRef.current && sliderRef.current) {
+      gsap.killTweensOf(qRef.current('*'));
+      // Reset any slides that might be mid-fade to full opacity and proper z-index
+      gsap.set(qRef.current('.slide-item'), { opacity: 1 });
+      // Ensure currently active slide has highest z-index
+      gsap.set(qRef.current('.slide-item'), { zIndex: 1 });
+      gsap.set(qRef.current(`[data-idx="${currentSlideRef.current}"]`), { zIndex: 10 });
+    }
+    
+    isAnimatingRef.current = false;
+  }, []);
+
+  // Initialize selector and animate first slide
   useEffect(() => {
     qRef.current = gsap.utils.selector(sliderRef.current);
     animateSlide(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Función para animar la entrada de un slide
+  // Function to animate slide entrance
   const animateSlide = useCallback((idxToAnimate: number) => {
     if (!qRef.current) return;
+    
+    isAnimatingRef.current = true;
+    
     const tl = gsap.timeline({
       onComplete: () => {
-        gsap.set(sliderRef.current, { pointerEvents: 'all' });
-        gsap.set(controls.current, { pointerEvents: 'all' });
+        isAnimatingRef.current = false;
+        // Remove this timeline from active timelines
+        activeTimelines.current = activeTimelines.current.filter(timeline => timeline !== tl);
       }
     });
-    //console.log('Animating slide:', idxToAnimate);
+    
+    // Add to active timelines for cleanup management
+    activeTimelines.current.push(tl);
+    
     setSlideIndex(idxToAnimate);
 
-    tl.set(qRef.current(`[data-idx="${idxToAnimate}"]`), { display: 'block' });
+    // Ensure proper z-index layering
+    tl.set(qRef.current('.slide-item'), { display: 'none', zIndex: 1 });
+    tl.set(qRef.current(`[data-idx="${idxToAnimate}"]`), { display: 'block', zIndex: 10 });
+    
+    // Set initial states for animation
     tl.set(qRef.current(`[data-idx="${idxToAnimate}"] .img`), { scale: 1.1, opacity: 0 });
     tl.set(qRef.current(`[data-idx="${idxToAnimate}"] .heading`), { opacity: 0, x: '-10px' });
     tl.set(qRef.current(`[data-idx="${idxToAnimate}"] .description`), { opacity: 0, x: '-10px' });
     tl.set(qRef.current(`[data-idx="${idxToAnimate}"] .cta`), { opacity: 0, y: '20px' });
+    
+    // Animate elements in
     tl.to(qRef.current(`[data-idx="${idxToAnimate}"] .img`), { duration: 2, opacity: 1, scale: 1, ease: "power2.out" });
     tl.to(qRef.current(`[data-idx="${idxToAnimate}"] .heading`), { duration: 1, opacity: 1, x: 0, ease: "power2.out" }, "-=1.5");
     tl.to(qRef.current(`[data-idx="${idxToAnimate}"] .description`), { duration: 1, opacity: 1, x: 0, ease: "power2.out" }, "-=1.0");
     tl.to(qRef.current(`[data-idx="${idxToAnimate}"] .cta`), { duration: 1, opacity: 1, y: 0, ease: "power2.out" }, "-=0.5");
   }, []);
 
-  // Función para animar la salida del slide actual y la entrada del nuevo
+  // Function to transition from current slide to new slide
   const getNewSlide = useCallback((newSlideIdx: number) => {
     if (!qRef.current) return;
-    //console.log('getNewSlide(): newSlideIdx =', newSlideIdx);
     if (newSlideIdx === currentSlideRef.current) return;
 
-    gsap.set(sliderRef.current, { pointerEvents: 'none' });
-    gsap.set(controls.current, { pointerEvents: 'none' });
+    // Kill all existing animations immediately to prevent overlap
+    killAllAnimations();
+    
+    const oldSlideIdx = currentSlideRef.current;
+    
+    // Update the current slide reference immediately
+    currentSlideRef.current = newSlideIdx;
+    
+    isAnimatingRef.current = true;
 
-    const tl = gsap.timeline();
-    tl.to(qRef.current(`[data-idx="${currentSlideRef.current}"] .cta`), { duration: 0.25, opacity: 0, y: '10px', ease: "power1.in" }, "-=0");
-    tl.to(qRef.current(`[data-idx="${currentSlideRef.current}"] .description`), { duration: 0.25, opacity: 0, x: '-10px', ease: "power1.in" }, "-=0.1");
-    tl.to(qRef.current(`[data-idx="${currentSlideRef.current}"] .heading`), { duration: 0.25, opacity: 0, x: '-10px', ease: "power1.in" }, "-=0.05");
-    tl.to(qRef.current(`[data-idx="${currentSlideRef.current}"] .img`), { duration: 0.25, opacity: 0, ease: "power1.in" }, "-=0.025");
-    tl.call(() => {
-      currentSlideRef.current = newSlideIdx;
-      animateSlide(newSlideIdx);
-    }, [], "-=0.25");
-  }, [animateSlide]);
+    const tl = gsap.timeline({
+      onComplete: () => {
+        // Hide the old slide only after transition is complete
+        gsap.set(qRef.current(`[data-idx="${oldSlideIdx}"]`), { display: 'none' });
+        // Reset z-index for all slides and ensure new slide is on top
+        gsap.set(qRef.current('.slide-item'), { zIndex: 1 });
+        gsap.set(qRef.current(`[data-idx="${newSlideIdx}"]`), { zIndex: 10 });
+        isAnimatingRef.current = false;
+        // Remove this timeline from active timelines
+        activeTimelines.current = activeTimelines.current.filter(timeline => timeline !== tl);
+      }
+    });
+    
+    // Add to active timelines for cleanup management
+    activeTimelines.current.push(tl);
+    
+    setSlideIndex(newSlideIdx);
+    
+    // Set up proper z-index layering for crossfade
+    // Reset all slides to low z-index first
+    tl.set(qRef.current('.slide-item'), { zIndex: 1 });
+    
+    // Show the new slide and prepare it for animation (behind the old slide initially)
+    tl.set(qRef.current(`[data-idx="${newSlideIdx}"]`), { display: 'block', zIndex: 5 });
+    tl.set(qRef.current(`[data-idx="${oldSlideIdx}"]`), { zIndex: 8 }); // Keep old slide on top initially
+    
+    // Set initial states for the new slide (invisible, ready to animate)
+    tl.set(qRef.current(`[data-idx="${newSlideIdx}"] .img`), { scale: 1.1, opacity: 0 });
+    tl.set(qRef.current(`[data-idx="${newSlideIdx}"] .heading`), { opacity: 0, x: '-10px' });
+    tl.set(qRef.current(`[data-idx="${newSlideIdx}"] .description`), { opacity: 0, x: '-10px' });
+    tl.set(qRef.current(`[data-idx="${newSlideIdx}"] .cta`), { opacity: 0, y: '20px' });
+    
+    // Crossfade: fade out old slide while fading in new slide
+    tl.to(qRef.current(`[data-idx="${oldSlideIdx}"]`), { 
+      duration: 0.6, 
+      opacity: 0, 
+      ease: "power2.inOut" 
+    });
+    
+    // Bring new slide to front early in the crossfade
+    tl.set(qRef.current(`[data-idx="${newSlideIdx}"]`), { zIndex: 10 }, "-=0.3");
+    
+    // Animate the new slide elements in with staggered timing
+    tl.to(qRef.current(`[data-idx="${newSlideIdx}"] .img`), { 
+      duration: 1.5, 
+      opacity: 1, 
+      scale: 1, 
+      ease: "power2.out" 
+    }, "-=0.4"); // Start before old slide fully fades
+    
+    tl.to(qRef.current(`[data-idx="${newSlideIdx}"] .heading`), { 
+      duration: 0.8, 
+      opacity: 1, 
+      x: 0, 
+      ease: "power2.out" 
+    }, "-=1.0");
+    
+    tl.to(qRef.current(`[data-idx="${newSlideIdx}"] .description`), { 
+      duration: 0.8, 
+      opacity: 1, 
+      x: 0, 
+      ease: "power2.out" 
+    }, "-=0.6");
+    
+    tl.to(qRef.current(`[data-idx="${newSlideIdx}"] .cta`), { 
+      duration: 0.8, 
+      opacity: 1, 
+      y: 0, 
+      ease: "power2.out" 
+    }, "-=0.4");
+  }, [killAllAnimations]);
+
+  // Cleanup function to kill all animations on unmount
+  useEffect(() => {
+    return () => {
+      killAllAnimations();
+    };
+  }, [killAllAnimations]);
 
   // Autoplay: cada vez que cambia slideIndex se programa la transición
   useEffect(() => {
@@ -121,7 +233,7 @@ const Slider = (sliderProps: SliderProps) => {
     getNewSlide
   ]);
 
-  // Usamos react-swipeable para detectar gestos de swipe
+  // Use react-swipeable to detect swipe gestures
   const swipeHandlers = useSwipeable({
     onSwipedLeft: () => {
       userInteractedRef.current = true;
@@ -137,7 +249,7 @@ const Slider = (sliderProps: SliderProps) => {
           : totalSlides - 1;
       getNewSlide(newIndex);
     },
-    trackMouse: true // Permite detectar swipes con el ratón en escritorio
+    trackMouse: true // Allow mouse swipes on desktop
   });
 
   return (

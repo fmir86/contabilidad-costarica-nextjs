@@ -54,7 +54,7 @@
 
     .controls{
         @apply hidden md:flex;
-        @apply absolute bottom-4 w-full justify-center z-[2];
+        @apply absolute bottom-4 w-full justify-center z-[20];
 
         button{
             @apply w-4 h-4 bg-white hover:bg-light-green mx-2 transition-all duration-300;
