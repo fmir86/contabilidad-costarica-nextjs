@@ -4,7 +4,7 @@ excerpt: "El Ministerio de Hacienda anuncia cambios en la fecha de implementaci�
 date: "31-07-2025"
 author: "Connie Palma"
 category: "Impuestos"
-srcimg: "/images/blogposts/tribu-cr-guia-transicion.jpg"
+srcimg: "/images/blogposts/tribu-cr-hacienda.jpg"
 references:
   - 'La Nación. (2025). "Tribu-CR: Hacienda anuncia nueva fecha de entrada en vigencia del nuevo sistema." https://www.nacion.com/economia/tribu-cr-hacienda-anuncia-nueva-fecha-de-entrada/BOGWRKL3ENCHRHBJWLYKYM5OAU/story/'
   - 'BDO Costa Rica. (2025). "Bienvenido TRIBU-CR: Uso de nueva plataforma iniciará en agosto." https://www.bdo.cr/es-cr/publicaciones/2025/bienvenido-tribu-cr-uso-de-nueva-plataforma-iniciara-en-agosto'
