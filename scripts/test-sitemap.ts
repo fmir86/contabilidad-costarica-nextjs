@@ -3,11 +3,20 @@
 
 import sitemap from '../src/app/sitemap';
 
+// Extended type that includes images property
+type ExtendedSitemapEntry = {
+  url: string;
+  lastModified?: string | Date;
+  changeFrequency?: "monthly" | "always" | "hourly" | "daily" | "weekly" | "yearly" | "never";
+  priority?: number;
+  images?: string[];
+};
+
 async function testSitemap() {
   console.log('Testing sitemap generation...\n');
   
   try {
-    const sitemapData = await sitemap();
+    const sitemapData = await sitemap() as ExtendedSitemapEntry[];
     
     console.log(`Total URLs in sitemap: ${sitemapData.length}`);
     console.log('\nSitemap entries:\n');

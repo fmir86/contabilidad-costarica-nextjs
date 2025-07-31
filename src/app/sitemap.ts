@@ -19,7 +19,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const postData = allPosts.find(p => p.slug === post.slug);
     const lastModified = getPostLastModified(post.slug);
     
-    const entry: MetadataRoute.Sitemap[0] = {
+    const entry: MetadataRoute.Sitemap[0] & { images?: string[] } = {
       url: `${baseUrl}/blog/${post.slug}`,
       lastModified,
       changeFrequency: 'weekly',
