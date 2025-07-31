@@ -149,9 +149,4 @@ Hemos invertido tiempo, recursos y esfuerzo para convertirnos en los expertos qu
 
 **¿Listo para asegurar una transición exitosa a Tribu-CR?**
 
-Contáctenos hoy para su diagnóstico gratuito:
-- 📧 info@contabilidadcostarica.net
-- 📱 WhatsApp: [Su número]
-- 🌐 www.contabilidadcostarica.net/tribu-cr
-
-*Cupos limitados para registro asistido en los primeros días. Reserve ahora y garantice la tranquilidad fiscal de su empresa.*
+Contáctenos hoy para su diagnóstico gratuito.
