@@ -14,7 +14,7 @@ references:
   - 'CR Hoy. (2025). "Recuerde: Hacienda desactivará sistemas tributarios este viernes para migrar a TRIBU-CR." https://crhoy.com/recuerde-hacienda-desactivara-sistemas-tributarios-este-viernes-para-migrar-a-tribu-cr/'
 ---
 
-Después de dos postergaciones por cuestiones legales, finalmente está confirmado: este jueves 25 de septiembre a las 11:45 p.m. se ejecutará la desconexión definitiva de ATV para iniciar la migración hacia Tribu-CR. Como contadora con más de 15 años de experiencia asesorando empresas en Costa Rica, he preparado esta guía práctica para que usted navegue estos 11 días críticos sin contratiempos.
+Después de dos postergaciones por cuestiones legales, finalmente está confirmado: este jueves 25 de septiembre a las 11:45 p.m. se ejecutará la desconexión definitiva de ATV para iniciar la migración hacia Tribu-CR. Como contadora con amplia experiencia asesorando empresas en Costa Rica, he preparado esta guía práctica para que usted navegue estos 11 días críticos sin contratiempos.
 
 ## La desconexión definitiva: ¿Qué sucederá exactamente?
 
@@ -211,4 +211,4 @@ El 6 de octubre marca el inicio de una nueva era en la administración tributari
 
 ---
 
-*Connie Palma es Contadora Pública Autorizada con más de 15 años de experiencia en asesoría tributaria y contable para empresas costarricenses. En Contabilidad Costa Rica, continuamos monitoreando todas las actualizaciones relacionadas con Tribu-CR para mantener a nuestros clientes informados y preparados durante esta transición histórica.*
+*Connie Palma es Contadora Pública Autorizada con amplia experiencia en asesoría tributaria y contable para empresas costarricenses. En Contabilidad Costa Rica, continuamos monitoreando todas las actualizaciones relacionadas con Tribu-CR para mantener a nuestros clientes informados y preparados durante esta transición histórica.*
