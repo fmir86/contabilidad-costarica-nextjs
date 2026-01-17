@@ -125,9 +125,17 @@
 
       background-color: #353535;
       color: #ffffff;
-  
+
       p {
         @apply text-sm;
+      }
+
+      .developer-credit {
+        @apply mt-6;
+
+        a {
+          @apply hover:text-light-green transition duration-300;
+        }
       }
     }
   }

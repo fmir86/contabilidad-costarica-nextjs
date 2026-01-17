@@ -127,6 +127,9 @@ const Footer: FunctionComponent = () => {
       {/* FOOTER BOTTOM */}
       <div className={styles['footer-bottom']}>
         <p>©2025. Contabilidad Costa Rica. Todos los derechos reservados.</p>
+        <p className={styles['developer-credit']}>
+          Desarrollado por <a href="https://fabianmiranda.com" target="_blank" rel="noopener">fabianmiranda.com</a>
+        </p>
       </div>
     </footer>
   );
