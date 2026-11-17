@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Contabilidad Costa Rica
 
-## Getting Started
+Marketing site for an accounting firm in Costa Rica (contabilidadcostarica.net), built with Next.js 14 (App Router), TypeScript, Tailwind CSS and SCSS modules. Blog posts and service pages are Markdown files rendered at build time.
 
-First, run the development server:
+## Requirements
+
+- Node.js 20 or newer
+- npm (the repo ships a `package-lock.json`)
+
+## Getting started
 
 ```bash
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Copy `.env.example` to `.env.local`. The site builds and every page renders without any of them. They are only used by the API routes behind the forms:
 
-## Learn More
+- `SMTP_*` and `RECIPIENT_EMAIL`: contact forms (`/api/sendEmail`)
+- `MAILCHIMP_API_KEY` and `MAILCHIMP_LIST_ID`: newsletter signup (`/api/subscribe`)
 
-To learn more about Next.js, take a look at the following resources:
+Without them those routes return a 500 error.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Scripts
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Command | What it does |
+| --- | --- |
+| `npm run dev` | Development server on port 3000 |
+| `npm run build` | Production build (also runs lint and type checks) |
+| `npm start` | Serve the production build |
+| `npm run lint` | ESLint with `next/core-web-vitals` |
+| `npm run test:sitemap` | Prints the generated sitemap entries as a quick check |
 
-## Deploy on Vercel
+## Content
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `blogposts/*.md`: blog posts, served at `/blog/[slug]`
+- `servicios/*.md`: service pages, served at `/servicios/[slug]`
+- `src/app/sitemap.ts`: sitemap built from the static pages plus both folders (see `SITEMAP_GUIDE.md`)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+To add a post or service, copy an existing Markdown file in the matching folder and keep its front matter fields. `EXAMPLE_NEW_CATEGORY.md` walks through adding a whole new content type to the site and sitemap.
